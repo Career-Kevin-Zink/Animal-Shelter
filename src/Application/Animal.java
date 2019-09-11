@@ -41,7 +41,7 @@ public class Animal {
         return species;
     }
 
-    public String setTemperment() {
+    public String getTemperment() {
         return temperment;
     }
 
