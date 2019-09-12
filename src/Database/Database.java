@@ -37,6 +37,15 @@ public class Database {
                         "Weight: " + resultSet.getInt(6) + " lbs"
                 );
             }
+
+
+            // Close connection & cleanup
+            resultSet.close();
+            resultSet = null;
+            statement.close();
+            statement = null;
+            connection.close();
+            connection = null;
         }
         catch (Exception ex) {
             System.out.println("Database Exception: Failed to load animals.\nReason: " + ex.toString());
@@ -74,13 +83,21 @@ public class Database {
             pstmt.executeUpdate();
 
             // collect collar id auto generated value
-            ResultSet rs = pstmt.getGeneratedKeys();
+            ResultSet resultSet = pstmt.getGeneratedKeys();
 
-            if (rs.next()) {
+            if (resultSet.next()) {
                 // pending implementation decision
-                // animal.setId(rs.getInt(1);
+                // animal.setId(rs.getInt(1));
                 return;
             }
+
+            // Close connection & cleanup
+            resultSet.close();
+            resultSet = null;
+            pstmt.close();
+            pstmt = null;
+            connection.close();
+            connection = null;
         }
         catch (Exception ex) {
             System.out.println("Database Exception: Failed to save animal.\nReason: " + ex.toString());
