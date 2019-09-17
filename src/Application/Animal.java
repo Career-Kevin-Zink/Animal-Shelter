@@ -4,8 +4,13 @@ public class Animal {
 
     private String name;
     private String species;
-    private String temperament;
+    private String temperment;
+    private String sex;
     private String color;
+    private String breed;
+    private String microchip;
+
+
     private int age;
     private int weight;
     private int animalID;
@@ -23,12 +28,18 @@ public class Animal {
     }
 
     public void setTemperment(String temperment) {
-        this.temperament = temperment;
+        this.temperment = temperment;
     }
+
+    public void setSex(String sex) { this.sex = sex; }
 
     public void setColor(String color) {
         this.color = color;
     }
+
+    public void setBreed(String breed) { this.breed = breed; }
+
+    public void setMicrochip(String microchip) { this.microchip = microchip; }
 
     public void setAge(int age) {
         this.age = age;
@@ -51,13 +62,19 @@ public class Animal {
         return species;
     }
 
-    public String getTemperament() {
-        return temperament;
+    public String getTemperment() {
+        return temperment;
     }
+
+    public String getSex() { return sex; }
 
     public String getColor() {
         return color;
     }
+
+    public String getBreed() { return breed; }
+
+    public String getMicrochip() { return microchip; }
 
     public int getAge() {
         return age;
