@@ -1,7 +1,5 @@
 package Database;
 
-import Application.Animal;
-
 import java.sql.*;
 
 public class Database {
@@ -65,68 +63,13 @@ public class Database {
             }
 
 
-            // Close connection & cleanup
+            // Close connection
             resultSet.close();
-            resultSet = null;
             statement.close();
-            statement = null;
             connection.close();
-            connection = null;
         }
         catch (Exception ex) {
             System.out.println("Database Exception: Failed to load animals.\nReason: " + ex.toString());
-        }
-    }
-
-    /*  Example of how to use saveAnimal
-
-        Animal Jeff = new Animal();
-        Jeff.setName("Jeff");
-        Jeff.setSpecies("Gorilla");
-        Jeff.setTemperment("Absolutely Bananas");
-        Jeff.setAge(44);
-        Jeff.setWeight(505);
-        Database.saveAnimal(Jeff);
-     */
-
-    public static void saveAnimal(Animal animal) {
-        try {
-            // Connects to database
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
-
-            // build query using data from the animal object
-            PreparedStatement pstmt = connection.prepareStatement(
-                "INSERT INTO animals (Name, MainSpecies, Temperment, Age, Weight)" +
-                    "VALUES (?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-
-            pstmt.setString(1, animal.getName());
-            pstmt.setString(2, animal.getSpecies());
-            pstmt.setString(3, animal.getTemperament());
-            pstmt.setInt(4, animal.getAge());
-            pstmt.setInt(5, animal.getWeight());
-
-            // send query
-            pstmt.executeUpdate();
-
-            // collect collar id auto generated value
-            ResultSet resultSet = pstmt.getGeneratedKeys();
-
-            if (resultSet.next()) {
-                // pending implementation decision
-                // animal.setId(rs.getInt(1));
-                return;
-            }
-
-            // Close connection & cleanup
-            resultSet.close();
-            resultSet = null;
-            pstmt.close();
-            pstmt = null;
-            connection.close();
-            connection = null;
-        }
-        catch (Exception ex) {
-            System.out.println("Database Exception: Failed to save animal.\nReason: " + ex.toString());
         }
     }
 
@@ -212,7 +155,8 @@ public class Database {
                     } else if (queryParams[i] instanceof Float) {
                         pstmt.setFloat(i + 1, (float) queryParams[i]);
                     } else {
-                        System.out.println("UNKNOWN TYPE: " + queryParams[i].getClass().getTypeName());
+                        throw new IllegalArgumentException("Query Params: Unknown data type - " +
+                                queryParams[i].getClass().getTypeName());
                     }
                 }
             }
