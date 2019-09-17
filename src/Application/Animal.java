@@ -14,6 +14,22 @@ public class Animal {
     private int animalID;
 
     public Animal() {
+        // probably don't want a constructor with no params
+    }
+
+    public Animal(String name, String species, String temperment, String sex,
+                  String color, String breed, String microchip, int age,
+                  int weight, int animalID) {
+        this.name = name;
+        this.species = species;
+        this.temperment = temperment;
+        this.sex = sex;
+        this.color = color;
+        this.breed = breed;
+        this.microchip = microchip;
+        this.age = age;
+        this.weight = weight;
+        this.animalID = animalID;
     }
 
     // Setters
