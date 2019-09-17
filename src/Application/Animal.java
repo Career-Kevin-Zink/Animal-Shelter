@@ -9,8 +9,6 @@ public class Animal {
     private String color;
     private String breed;
     private String microchip;
-
-
     private int age;
     private int weight;
     private int animalID;
