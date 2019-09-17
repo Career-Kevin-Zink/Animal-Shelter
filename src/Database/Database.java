@@ -39,7 +39,7 @@ public class Database {
                         "Collar ID: " + resultSet.getInt(1) + "\n" +
                         "Name: " + resultSet.getString(2) + "\n" +
                         "Species: " + resultSet.getString(3) + "\n" +
-                        "Temperment: " + resultSet.getString(4) + "\n" +
+                        "Temperament: " + resultSet.getString(4) + "\n" +
                         "Age: " + resultSet.getInt(5) + " years\n" +
                         "Weight: " + resultSet.getInt(6) + " lbs"
                 );
@@ -82,7 +82,7 @@ public class Database {
 
             pstmt.setString(1, animal.getName());
             pstmt.setString(2, animal.getSpecies());
-            pstmt.setString(3, animal.getTemperment());
+            pstmt.setString(3, animal.getTemperament());
             pstmt.setInt(4, animal.getAge());
             pstmt.setInt(5, animal.getWeight());
 

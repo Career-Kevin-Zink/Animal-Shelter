@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Patients"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #212221;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.PatientsController">
+    <top>
+        <ButtonBar prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #1181B2;" BorderPane.alignment="CENTER">
+            <buttons>
+                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed" style="-fx-background-color: #1181B2;" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Lato Bold" size="20.0" />
+                    </font>
+                </Button>
+            <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed" style="-fx-background-color: #1181B2;" text="Patients" textFill="#ddedf4">
+               <font>
+                  <Font name="Lato Bold" size="20.0" />
+               </font>
+            </Button>
+            </buttons>
+        </ButtonBar>
+    </top>
+    <left>
+        <VBox prefHeight="350.0" prefWidth="100.0" style="-fx-background-color: #DDEDF4;" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="addPatientButton" mnemonicParsing="false" onAction="#addPatientButtonPushed" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #DDEDF4;" text="Add Patient" textFill="#1181b2">
+                    <font>
+                        <Font name="Lato Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+    </left>
+</BorderPane>

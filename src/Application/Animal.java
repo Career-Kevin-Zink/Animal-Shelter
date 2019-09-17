@@ -4,9 +4,11 @@ public class Animal {
 
     private String name;
     private String species;
-    private String temperment;
+    private String temperament;
+    private String color;
     private int age;
     private int weight;
+    private int animalID;
 
     public Animal() {
     }
@@ -21,7 +23,11 @@ public class Animal {
     }
 
     public void setTemperment(String temperment) {
-        this.temperment = temperment;
+        this.temperament = temperment;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public void setAge(int age) {
@@ -30,6 +36,10 @@ public class Animal {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public void setAnimalID(int animalID) {
+        this.animalID = animalID;
     }
 
     // Getters
@@ -41,8 +51,12 @@ public class Animal {
         return species;
     }
 
-    public String getTemperment() {
-        return temperment;
+    public String getTemperament() {
+        return temperament;
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public int getAge() {
@@ -51,6 +65,10 @@ public class Animal {
 
     public int getWeight() {
         return weight;
+    }
+
+    public int getAnimalID() {
+        return animalID;
     }
 
     //Methods

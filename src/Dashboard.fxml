@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Dashboard"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #212221;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.DashboardController">
+    <top>
+        <ButtonBar prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #1181B2;" BorderPane.alignment="CENTER">
+            <buttons>
+            <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPressed" style="-fx-background-color: #1181B2;" text="Dashboard" textFill="#ddedf4">
+               <font>
+                  <Font name="Lato Bold" size="20.0" />
+               </font>
+            </Button>
+                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPressed" style="-fx-background-color: #1181B2;" text="Patients" textAlignment="CENTER" textFill="#ddedf4">
+                    <font>
+                        <Font name="Lato Bold" size="20.0" />
+                    </font>
+                </Button>
+            </buttons>
+        </ButtonBar>
+    </top>
+</BorderPane>

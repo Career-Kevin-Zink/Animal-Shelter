@@ -14,6 +14,8 @@ public class DashboardController {
 
     @FXML
     private Button patientsButton;
+    @FXML
+    private Button dashboardButton;
 
     // Patients Button Pressed
     public void patientsButtonPressed(ActionEvent event) throws IOException {
@@ -23,6 +25,17 @@ public class DashboardController {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         window.setScene(patientsScene);
+        window.show();
+    }
+
+    // Return to dashboard
+    public void dashboardButtonPressed(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(dashboardScene);
         window.show();
     }
 }

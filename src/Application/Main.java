@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/SplashPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Animal Shelter Management App");
         primaryStage.setScene(scene);

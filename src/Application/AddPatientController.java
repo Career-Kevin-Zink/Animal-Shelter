@@ -10,16 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class PatientsController {
+public class AddPatientController {
 
     @FXML
     private Button dashboardButton;
     @FXML
     private Button patientsButton;
     @FXML
-    private Button addPatientButton;
+    private Button savePatientButton;
 
-    // Return to Dashboard Button
+    // Return to Dashboard
     public void dashboardButtonPushed(ActionEvent event) throws IOException {
         Parent dashboardParent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
@@ -29,7 +29,7 @@ public class PatientsController {
         window.show();
     }
 
-    // Return to Patients Button
+    // Return to Patients Scene
     public void patientsButtonPushed(ActionEvent event) throws IOException {
         Parent patientsParent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
         Scene patientsScene = new Scene(patientsParent);
@@ -38,15 +38,4 @@ public class PatientsController {
         window.setScene(patientsScene);
         window.show();
     }
-
-    // Add Patient
-    public void addPatientButtonPushed(ActionEvent event) throws IOException {
-        Parent addPatientParent = FXMLLoader.load(getClass().getResource("/AddPatient.fxml"));
-        Scene addPatientScene = new Scene(addPatientParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(addPatientScene);
-        window.show();
-    }
-
 }
