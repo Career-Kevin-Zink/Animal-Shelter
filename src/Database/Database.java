@@ -9,8 +9,27 @@ public class Database {
     public static ResultSet getAllOfSpecies(String species) {
         ResultSet rs = null;
 
-        rs = executeQuery("SELECT * FROM animals WHERE MainSpecies = '" + species + "'", null, false);
+        rs = executeQuery("SELECT * FROM animals WHERE MainSpecies = '" + species + "'",
+                null, false);
         return rs;
+    }
+
+    public static ResultSet saveNewPatient(String name, String species, String sex, String color,
+                                           String breed, int age, String microchip) {
+
+        ResultSet rs = executeQuery("INSERT INTO animals (Name,MainSpecies,Sex,Color,Breed,Age,Microchip) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)", new Object[] {name, species, "male", color, breed, age, microchip},
+                true);
+
+        try {
+            while (rs.next())
+                System.out.println(rs.getInt(1));
+        }
+        catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+
+        return null;
     }
 
     /**
@@ -130,25 +149,31 @@ public class Database {
                 PreparedStatement pstmt = buildQuery(connection, query, queryParams);
 
                 // send query & return results
-                if (fetchKey) {
-                    // if fetchKey is true, we are most likely using an INSERT statement, so we're not looking for
-                    // a row, but rather just the generated key from the new row, so we only need to return that.
-                    return pstmt.getGeneratedKeys();
-                }
-                else {
+
+                // Depending on whether or not the query will return a result, or simply succeed/fail, you have to
+                // call executeQuery, or executeUpdate. For our uses, I think we'll only need to care about SELECT.
+                if (query.contains("SELECT")) {
+                    if (fetchKey) {
+                        // if fetchKey is true, we are most likely using an INSERT statement, so we're not looking for
+                        // a row, but rather just the generated key from the new row, so we only need to return that.
+                        pstmt.executeQuery();
+                        return pstmt.getGeneratedKeys();
+                    }
+
                     // but if fetchKey is false, we're most likely searching the database for something, so we want to
                     // return the entire table of results, so that the user can search through the results themselves.
-
-                    // Depending on whether or not the query will return a result, or simply succeed/fail, you have to
-                    // call executeQuery, or executeUpdate. For our uses, I think we'll only need to care about SELECT.
-                    if (query.contains("SELECT")) {
-                        return pstmt.executeQuery();
-                    }
-                    else {
-                        // Since other commands like INSERT and UPDATE don't return anything when executed, return null.
+                    return pstmt.executeQuery();
+                }
+                else {
+                    if (fetchKey) {
+                        // INSERT doesn't usually return anything, but it can return generated keys if wanted.
                         pstmt.executeUpdate();
-                        return null;
+                        return pstmt.getGeneratedKeys();
                     }
+
+                    // Since other commands like INSERT and UPDATE don't return anything when executed, return null.
+                    pstmt.executeUpdate();
+                    return null;
                 }
             }
             else {
