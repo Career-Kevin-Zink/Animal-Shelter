@@ -1,16 +1,10 @@
 package Database;
 
+import Application.Animal;
+
 import java.sql.*;
 
 public class Database {
-
-    public static ResultSet getAllOfSpecies(String species) {
-        ResultSet rs = null;
-
-        rs = executeQuery("SELECT * FROM animals WHERE MainSpecies = '" + species + "'",
-                null, false);
-        return rs;
-    }
 
     public static ResultSet saveNewPatient(String name, String species, String sex, String color,
                                            String breed, int age, String microchip) {
@@ -20,8 +14,15 @@ public class Database {
                 true);
 
         try {
-            while (rs.next())
-                System.out.println(rs.getInt(1));
+            while (rs.next()) {
+                // if successful, the rs returns the generated animalID, so we can construct the animal object
+                // @TODO We need to determine what we're going to do with temperment to replace "angry" below
+                // @TODO Waiting on Sex dropdown in order to get sex value from that
+                CacheManager.Animals.Add(
+                    new Animal(name, species, "angry", "male", color, breed, microchip,
+                            age, 50, rs.getInt(1))
+                );
+            }
         }
         catch (Exception ex) {
             System.out.println(ex.toString());
@@ -51,14 +52,20 @@ public class Database {
             */
             ResultSet resultSet = statement.executeQuery("SELECT * FROM animals");
             while (resultSet.next()) {
-                // @TODO replace this with a call to Animal constructor
-                System.out.println(
-                        "Collar ID: " + resultSet.getInt(1) + "\n" +
-                        "Name: " + resultSet.getString(2) + "\n" +
-                        "Species: " + resultSet.getString(3) + "\n" +
-                        "Temperament: " + resultSet.getString(4) + "\n" +
-                        "Age: " + resultSet.getInt(5) + " years\n" +
-                        "Weight: " + resultSet.getInt(6) + " lbs"
+                // Did this the long way so that it's easier to see what values are being passed to the constructor.
+                int animalID = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                String species = resultSet.getString(3);
+                String sex = resultSet.getString(4);
+                String color = resultSet.getString(5);
+                String breed = resultSet.getString(6);
+                int age = resultSet.getInt(7);
+                String microchip = resultSet.getString(8);
+                int weight = resultSet.getInt(9);
+                String temperment = resultSet.getString(10);
+
+                CacheManager.Animals.Add(
+                        new Animal(name, species, temperment, sex, color, breed, microchip, age, weight, animalID)
                 );
             }
 
@@ -69,7 +76,8 @@ public class Database {
             connection.close();
         }
         catch (Exception ex) {
-            System.out.println("Database Exception: Failed to load animals.\nReason: " + ex.toString());
+            System.out.println("Database Exception: Failed to load animals.\nReason: " + ex.toString()+"\n\n\n");
+            ex.printStackTrace();
         }
     }
 
