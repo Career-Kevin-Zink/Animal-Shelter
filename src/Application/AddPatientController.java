@@ -1,6 +1,7 @@
 package Application;
 
 import java.io.IOException;
+import java.util.Calendar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,8 +82,9 @@ public class AddPatientController {
         }
 
         // Passed the other checks, so create new animal in database
-        Database.saveNewPatient(newPatientName.getText(), newPatientSpecies.getText(), newPatientSex.toString(),
-                newPatientColor.getText(), newPatientBreed.getText(),
-                Integer.parseInt(newPatientAge.getText()),newPatientMicrochip.getText());
+        Database.saveNewPatient(newPatientName.getText(), newPatientSpecies.getText(), "TEMPERAMENT HERE",
+                newPatientSex.toString(), newPatientColor.getText(), newPatientBreed.getText(),
+                newPatientMicrochip.getText(), newPatientAge.getText(), "WEIGHT HERE",
+                java.util.Calendar.getInstance().getTime().toString(), "ADOPTABLE HERE");
     }
 }
