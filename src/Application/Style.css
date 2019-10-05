@@ -1,0 +1,67 @@
+/**
+Dashboard.fxml
+ */
+#borderPane {
+  -fx-background-color: #212221;
+}
+
+#buttonBar {
+  -fx-background-color:  #1181B2;
+}
+
+.button {
+  -fx-background-color: #1181B2;
+  -fx-font-family: Lato;
+  -fx-font-size: 20;
+  -fx-font-weight: bold;
+  -fx-text-fill: #ddedf4;
+}
+
+/**
+Patients.fxml
+ */
+#scrollPane {
+  -fx-background-color: #212221;
+  -fx-background: #212221;
+}
+
+#addPatientButton {
+  -fx-font-size: 14;
+  -fx-background-color: #ddedf4;
+  -fx-text-fill: #1181B2;
+}
+
+.label {
+  -fx-font-family: Lato;
+  -fx-font-size: 12;
+  -fx-font-weight: bold;
+  -fx-text-fill: #ddedf4
+}
+
+#verticalButtonBar {
+  -fx-background-color: #ddedf4
+}
+
+/**
+AddPatient.fxml
+ */
+.text-field {
+  -fx-font-family: Lato;
+  -fx-font-size: 12;
+  -fx-font-weight: bold;
+  -fx-text-fill: #212221;
+  -fx-background-color: #ddedf4;
+}
+
+.choice-box {
+  -fx-font-family: Lato;
+  -fx-font-size: 12;
+  -fx-font-weight: bold;
+  -fx-text-fill: #212221;
+  -fx-background-color: #ddedf4;
+}
+
+.choice-box .menu-item > .label {
+  -fx-text-fill: #212221;
+}
+

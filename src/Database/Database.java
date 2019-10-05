@@ -1,26 +1,29 @@
 package Database;
 
 import Application.Animal;
-
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
 
-    public static ResultSet saveNewPatient(String name, String species, String sex, String color,
-                                           String breed, int age, String microchip) {
+    public static ArrayList<Animal> animals = new ArrayList<>();
 
-        ResultSet rs = executeQuery("INSERT INTO animals (Name,MainSpecies,Sex,Color,Breed,Age,Microchip) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)", new Object[] {name, species, "male", color, breed, age, microchip},
-                true);
+    public static void saveNewPatient(String name, String species, String temperment, String sex,
+                                      String color, String breed, String microchip, String age,
+                                      String weight, String arrivalDate, String adoptable) {
+
+        ResultSet rs = executeQuery("INSERT INTO animals (Name,MainSpecies,Temperment,Sex,Color,Breed," +
+                        "Microchip,Age,Weight,ArrivalDate,Adoptable) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                new Object[] {name, species, temperment, sex, color, breed, microchip, age, weight, arrivalDate,
+                        adoptable},true);
 
         try {
             while (rs.next()) {
                 // if successful, the rs returns the generated animalID, so we can construct the animal object
-                // @TODO We need to determine what we're going to do with temperment to replace "angry" below
-                // @TODO Waiting on Sex dropdown in order to get sex value from that
-                CacheManager.Animals.Add(
-                    new Animal(name, species, "angry", "male", color, breed, microchip,
-                            age, 50, rs.getInt(1))
+
+                animals.add(
+                    new Animal(name, species, temperment, sex, color, breed, microchip, age,
+                            weight, arrivalDate, adoptable, rs.getInt(1))
                 );
             }
         }
@@ -28,7 +31,6 @@ public class Database {
             System.out.println(ex.toString());
         }
 
-        return null;
     }
 
     /**
@@ -59,16 +61,18 @@ public class Database {
                 String sex = resultSet.getString(4);
                 String color = resultSet.getString(5);
                 String breed = resultSet.getString(6);
-                int age = resultSet.getInt(7);
+                String age = resultSet.getString(7);
                 String microchip = resultSet.getString(8);
-                int weight = resultSet.getInt(9);
+                String weight = resultSet.getString(9);
                 String temperment = resultSet.getString(10);
+                String arrivalDate = resultSet.getString(11);
+                String adoptable = resultSet.getString(12);
 
-                CacheManager.Animals.Add(
-                        new Animal(name, species, temperment, sex, color, breed, microchip, age, weight, animalID)
-                );
+                Animal animal = new Animal(
+                        name, species, temperment, sex, color, breed, microchip, age, weight, arrivalDate,
+                        adoptable, animalID);
+                animals.add(animal);
             }
-
 
             // Close connection
             resultSet.close();

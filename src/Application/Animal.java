@@ -1,5 +1,7 @@
 package Application;
 
+import java.sql.Date;
+
 public class Animal {
 
     private String name;
@@ -9,8 +11,10 @@ public class Animal {
     private String color;
     private String breed;
     private String microchip;
-    private int age;
-    private int weight;
+    private String age;
+    private String weight;
+    private String adoptable;
+    private String arrivalDate;
     private int animalID;
 
     public Animal() {
@@ -18,8 +22,8 @@ public class Animal {
     }
 
     public Animal(String name, String species, String temperment, String sex,
-                  String color, String breed, String microchip, int age,
-                  int weight, int animalID) {
+                  String color, String breed, String microchip, String age,
+                  String weight, String arrivalDate, String adoptable, int animalID) {
         this.name = name;
         this.species = species;
         this.temperment = temperment;
@@ -29,7 +33,9 @@ public class Animal {
         this.microchip = microchip;
         this.age = age;
         this.weight = weight;
+        this.arrivalDate = arrivalDate;
         this.animalID = animalID;
+        this.adoptable = adoptable;
     }
 
     // Setters
@@ -55,12 +61,16 @@ public class Animal {
 
     public void setMicrochip(String microchip) { this.microchip = microchip; }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public void setAdoptable(String adoptable) {
+        this.adoptable = adoptable;
     }
 
     public void setAnimalID(int animalID) {
@@ -90,12 +100,16 @@ public class Animal {
 
     public String getMicrochip() { return microchip; }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public int getWeight() {
+    public String getWeight() {
         return weight;
+    }
+
+    public String getAdoptable() {
+        return adoptable;
     }
 
     public int getAnimalID() {
