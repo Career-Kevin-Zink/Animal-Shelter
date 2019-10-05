@@ -11,30 +11,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #212221;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.AddPatientController">
+<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Application/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.AddPatientController">
     <top>
-        <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #1181B2;" BorderPane.alignment="CENTER">
+        <ButtonBar id="buttonBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <buttons>
-                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed" style="-fx-background-color: #1181B2;" text="Dashboard" textFill="#ddedf4">
-                    <font>
-                        <Font name="Lato Bold" size="20.0" />
-                    </font>
-                </Button>
-                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed" style="-fx-background-color: #1181B2;" text="Patients" textFill="#ddedf4">
-                    <font>
-                        <Font name="Lato Bold" size="20.0" />
-                    </font>
-                </Button>
+                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed" text="Dashboard" />
+                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed" style="-fx-background-color: #1181B2;" text="Patients" />
             </buttons>
         </ButtonBar>
     </top>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="New Patient" textFill="#ddedf4">
-               <font>
-                  <Font name="Lato Bold" size="20.0" />
-               </font>
+            <Label text="New Patient">
                <VBox.margin>
                   <Insets left="20.0" top="5.0" />
                </VBox.margin>
@@ -61,7 +50,7 @@
             </HBox>
             <HBox prefHeight="27.0" prefWidth="600.0">
                <children>
-                  <TextField fx:id="newPatientName" prefHeight="25.0" prefWidth="250.0" style="-fx-background-color: #DDEDF4;">
+                  <TextField fx:id="newPatientName" prefHeight="25.0" prefWidth="250.0">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -88,19 +77,19 @@
                         <Font name="Lato Bold" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="105.0" top="10.0" />
+                        <Insets left="110.0" top="10.0" />
                      </HBox.margin>
                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="19.0" prefWidth="600.0">
                <children>
-                  <ChoiceBox fx:id="newPatientSex" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #DDEDF4;">
+                  <ChoiceBox fx:id="newPatientSex" prefHeight="25.0" prefWidth="100.0">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </ChoiceBox>
-                  <TextField fx:id="newPatientColor" prefHeight="25.0" prefWidth="400.0" style="-fx-background-color: #DDEDF4;">
+                  <TextField fx:id="newPatientColor" prefHeight="25.0" prefWidth="400.0">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
@@ -122,19 +111,19 @@
                         <Font name="Lato Bold" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="240.0" top="10.0" />
+                        <Insets left="245.0" top="10.0" />
                      </HBox.margin>
                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="10.0" prefWidth="600.0">
                <children>
-                  <TextField fx:id="newPatientBreed" prefHeight="25.0" prefWidth="250.0" style="-fx-background-color: #DDEDF4;">
+                  <TextField fx:id="newPatientBreed" prefHeight="25.0" prefWidth="250.0">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <TextField fx:id="newPatientAge" prefHeight="25.0" prefWidth="253.0" style="-fx-background-color: #DDEDF4;">
+                  <TextField fx:id="newPatientAge" prefHeight="25.0" prefWidth="253.0">
                      <HBox.margin>
                         <Insets left="29.0" />
                      </HBox.margin>
@@ -155,7 +144,7 @@
             </HBox>
             <HBox prefHeight="0.0" prefWidth="600.0">
                <children>
-                  <TextField fx:id="newPatientMicrochip" prefHeight="25.0" prefWidth="532.0" style="-fx-background-color: #DDEDF4;">
+                  <TextField fx:id="newPatientMicrochip" prefHeight="25.0" prefWidth="532.0">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -164,13 +153,10 @@
             </HBox>
             <HBox prefHeight="0.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="savePatientButton" onAction="#savePatientButtonPushed" mnemonicParsing="false" style="-fx-background-color: #1181B2;" text="Save Patient" textFill="#ddedf4">
+                  <Button fx:id="savePatientButton" mnemonicParsing="false" onAction="#savePatientButtonPushed" text="Save Patient">
                      <HBox.margin>
                         <Insets left="20.0" top="30.0" />
                      </HBox.margin>
-                     <font>
-                        <Font name="Lato Bold" size="14.0" />
-                     </font>
                   </Button>
                </children>
             </HBox>
