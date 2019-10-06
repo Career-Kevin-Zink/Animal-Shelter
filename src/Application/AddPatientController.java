@@ -96,7 +96,7 @@ public class AddPatientController {
     // Passed the other checks, so create new animal in database
     Database
         .saveNewPatient(newPatientName.getText(), newPatientSpecies.getText(), "TEMPERAMENT HERE",
-            newPatientSex.toString(), newPatientColor.getText(), newPatientBreed.getText(),
+            newPatientSex.getValue(), newPatientColor.getText(), newPatientBreed.getText(),
             newPatientMicrochip.getText(), newPatientAge.getText(), "WEIGHT HERE",
             java.util.Calendar.getInstance().getTime().toString(), "ADOPTABLE HERE");
   }
