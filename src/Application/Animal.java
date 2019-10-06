@@ -1,6 +1,9 @@
 package Application;
 
-import java.sql.Date;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Animal {
 
@@ -117,4 +120,34 @@ public class Animal {
     }
 
     //Methods
+
+    public static List<String> displayAnimalData(int selectedCollarID) throws SQLException, ClassNotFoundException {   // takes a CollarID and uses that ID for query to specific animal
+
+
+        Class.forName("org.sqlite.JDBC");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+        String sql = "SELECT * FROM Animals WHERE CollarID = " + selectedCollarID;
+        Statement stmt;
+        stmt = conn.createStatement();
+        ResultSet res;
+        res = stmt.executeQuery(sql); // Select entire row from specific CollarID
+
+        ResultSetMetaData rsmd = res.getMetaData();
+        int columnCount = rsmd.getColumnCount();
+
+        List<String> animalView = new ArrayList<String>(); // New ArrayList for Animals data from DB columns to be stored into for viewing
+        while(res.next()){
+            int i = 1;
+            while(i <= columnCount) {
+                animalView.add(res.getString(i++));
+            }
+        }
+        // trying to print each value stored into ArrayList in order to see if it works
+        // System.out.println(animalView);
+
+        return animalView;                       //  returns the animalView ArrayList populated with the data of the entire row
+    }
+
+
+
 }
