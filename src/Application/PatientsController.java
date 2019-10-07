@@ -31,7 +31,7 @@ public class PatientsController {
     private Button addPatientButton;
 
     public void initialize() {
-        for (Animal animal : Database.animals) {
+        for (Animal animal : Database.animals.values()) {
             addAnimalToDisplay(animal);
         }
     }

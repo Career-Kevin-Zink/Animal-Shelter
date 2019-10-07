@@ -1,12 +1,16 @@
 package Database;
 
 import Application.Animal;
+import Application.Kennel;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Database {
 
-    public static ArrayList<Animal> animals = new ArrayList<>();
+    public static HashMap<Integer, Animal> animals = new HashMap<Integer, Animal>();
+    public static HashMap<Integer, Kennel> kennels = new HashMap<Integer, Kennel>();
 
     public static void saveNewPatient(String name, String species, String temperment, String sex,
                                       String color, String breed, String microchip, String age,
@@ -20,9 +24,7 @@ public class Database {
         try {
             while (rs.next()) {
                 // if successful, the rs returns the generated animalID, so we can construct the animal object
-
-                animals.add(
-                    new Animal(name, species, temperment, sex, color, breed, microchip, age,
+                animals.put(rs.getInt(1), new Animal(name, species, temperment, sex, color, breed, microchip, age,
                             weight, arrivalDate, adoptable, rs.getInt(1))
                 );
             }
@@ -31,6 +33,14 @@ public class Database {
             System.out.println(ex.toString());
         }
 
+    }
+
+    /**
+     * Loads Animals and Kennels from the database.
+     */
+    public static void loadAll() {
+        loadAnimals();
+        loadKennels();
     }
 
     /**
@@ -68,10 +78,9 @@ public class Database {
                 String arrivalDate = resultSet.getString(11);
                 String adoptable = resultSet.getString(12);
 
-                Animal animal = new Animal(
-                        name, species, temperment, sex, color, breed, microchip, age, weight, arrivalDate,
-                        adoptable, animalID);
-                animals.add(animal);
+                animals.put(animalID, new Animal( name, species, temperment, sex, color, breed, microchip, age,
+                        weight, arrivalDate, adoptable, animalID)
+                );
             }
 
             // Close connection
@@ -81,6 +90,37 @@ public class Database {
         }
         catch (Exception ex) {
             System.out.println("Database Exception: Failed to load animals.\nReason: " + ex.toString()+"\n\n\n");
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads all kennels from the database.
+     */
+    public static void loadKennels() {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM kennels");
+            while (resultSet.next()) {
+                int kennelID = resultSet.getInt("KennelID");
+                int currentAnimal = resultSet.getInt("CurrentAnimal");
+
+                if (currentAnimal == -1) {
+                    // No animal, so empty constructor.
+                    Kennel kennel = new Kennel();
+                } else {
+                    // get animal info from animals hashmap where key = currentAnimal id
+                    Kennel kennel = new Kennel(animals.get(currentAnimal));
+                }
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        }
+        catch (Exception ex) {
+            System.out.println("Database Exception: Failed to load kennels.\nReason: " + ex.toString()+"\n\n\n");
             ex.printStackTrace();
         }
     }
