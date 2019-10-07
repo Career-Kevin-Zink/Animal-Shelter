@@ -4,7 +4,6 @@ import Application.Animal;
 import Application.Kennel;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database {
@@ -106,13 +105,15 @@ public class Database {
                 int kennelID = resultSet.getInt("KennelID");
                 int currentAnimal = resultSet.getInt("CurrentAnimal");
 
+                Kennel kennel;
                 if (currentAnimal == -1) {
                     // No animal, so empty constructor.
-                    Kennel kennel = new Kennel();
+                    kennel = new Kennel();
                 } else {
                     // get animal info from animals hashmap where key = currentAnimal id
-                    Kennel kennel = new Kennel(animals.get(currentAnimal));
+                    kennel = new Kennel(animals.get(currentAnimal));
                 }
+                kennels.put(kennelID, kennel);
             }
 
             resultSet.close();
