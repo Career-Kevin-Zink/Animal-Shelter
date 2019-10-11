@@ -30,7 +30,7 @@
             </Label>
             <HBox prefHeight="25.0" prefWidth="600.0">
                <children>
-                  <Label text="Name" textFill="#ddedf4">
+                  <Label fx:id="newPatientNameLabel" text="Name" textFill="#ddedf4">
                      <font>
                         <Font name="Lato Bold" size="14.0" />
                      </font>
@@ -38,7 +38,7 @@
                         <Insets left="20.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label text="Species" textFill="#ddedf4">
+                  <Label fx:id="newPatientSpeciesLabel" text="Species" textFill="#ddedf4">
                      <font>
                         <Font name="Lato Bold" size="14.0" />
                      </font>
@@ -64,7 +64,7 @@
             </HBox>
             <HBox prefHeight="25.0" prefWidth="600.0">
                <children>
-                  <Label text="Sex" textFill="#ddedf4">
+                  <Label fx:id="newPatientSexLabel" text="Sex" textFill="#ddedf4">
                      <font>
                         <Font name="Lato Bold" size="14.0" />
                      </font>
@@ -72,7 +72,7 @@
                         <Insets left="20.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label text="Color" textFill="#ddedf4">
+                  <Label fx:id="newPatientColorLabel" text="Color" textFill="#ddedf4">
                      <font>
                         <Font name="Lato Bold" size="14.0" />
                      </font>
@@ -98,7 +98,7 @@
             </HBox>
             <HBox prefHeight="17.0" prefWidth="600.0">
                <children>
-                  <Label text="Breed" textFill="#ddedf4">
+                  <Label fx:id="newPatientBreedLabel" text="Breed" textFill="#ddedf4">
                      <font>
                         <Font name="Lato Bold" size="14.0" />
                      </font>
@@ -106,7 +106,7 @@
                         <Insets left="20.0" top="10.0" />
                      </padding>
                   </Label>
-                  <Label text="Age" textFill="#ddedf4">
+                  <Label fx:id="newPatientAgeLabel" text="Age" textFill="#ddedf4">
                      <font>
                         <Font name="Lato Bold" size="14.0" />
                      </font>
@@ -132,7 +132,7 @@
             </HBox>
             <HBox prefHeight="0.0" prefWidth="600.0">
                <children>
-                  <Label text="Microchip #:" textFill="#ddedf4">
+                  <Label fx:id="newPatientMicrochipLabel" text="Microchip #:" textFill="#ddedf4">
                      <font>
                         <Font name="Lato Bold" size="14.0" />
                      </font>
@@ -158,6 +158,14 @@
                         <Insets left="20.0" top="30.0" />
                      </HBox.margin>
                   </Button>
+                  <Label fx:id="requiredFieldsAlertLabel" textFill="red">
+                     <font>
+                        <Font name="Lato Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" top="30.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
          </children>
