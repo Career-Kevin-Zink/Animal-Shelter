@@ -15,6 +15,7 @@ Dashboard.fxml
   -fx-font-size: 20;
   -fx-font-weight: bold;
   -fx-text-fill: #ddedf4;
+  -fx-cursor: hand;
 }
 
 /**
@@ -62,6 +63,10 @@ AddPatient.fxml
 }
 
 .choice-box .menu-item > .label {
+  -fx-text-fill: #212221;
+}
+
+.choice-box > .label {
   -fx-text-fill: #212221;
 }
 
