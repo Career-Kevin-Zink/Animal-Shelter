@@ -77,4 +77,14 @@ public class PatientsController {
         displayPatientsGridPane.addRow(displayPatientsGridPane.getChildren().size() / 3, id, name, species);
     }
 
+    // Go to Kennel
+    public void kennelButtonPressed(ActionEvent event) throws IOException {
+        Parent kennelParent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
+        Scene kennelScene = new Scene(kennelParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(kennelScene);
+        window.show();
+    }
 }

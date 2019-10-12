@@ -86,6 +86,18 @@ public class AddPatientController {
         window.setScene(patientsScene);
         window.show();
     }
+    
+    // Go to Kennel
+    public void kennelButtonPressed(ActionEvent event) throws IOException {
+        Parent kennelParent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
+        Scene kennelScene = new Scene(kennelParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(kennelScene);
+        window.show();
+    }
+
 
     public void savePatientButtonPushed(ActionEvent event) throws IOException {
         // Basically the following code sets the label of any field that hasn't been filled in properly to red.

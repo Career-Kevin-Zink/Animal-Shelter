@@ -15,6 +15,7 @@
     <top>
         <ButtonBar id="buttonBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <buttons>
+            <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed" text="Kennel" />
                 <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed" text="Dashboard" />
                 <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed" style="-fx-background-color: #1181B2;" text="Patients" />
             </buttons>

@@ -8,6 +8,7 @@
     <top>
         <ButtonBar id="buttonBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <buttons>
+            <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed" text="Kennel" />
             <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPressed" text="Dashboard" />
                 <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPressed" style="-fx-background-color: #1181B2;" text="Patients" textAlignment="CENTER" />
             </buttons>
