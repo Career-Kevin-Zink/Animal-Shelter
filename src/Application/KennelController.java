@@ -33,8 +33,8 @@ public class KennelController {
         kennelGridPane.setVgap(10); //vertical gap in pixels
         kennelGridPane.setPadding(new Insets(10, 10, 10, 10)); //margins around the whole grid
         //(top/right/bottom/left)
-        for (Animal animal : Database.animals.values()) {
-            addAnimalToDisplay(animal);
+        for (Kennel kennel : Database.kennels.values()) {
+            addKennelToDisplay(kennel);
         }
     }
 
@@ -74,16 +74,18 @@ public class KennelController {
     // Add kennel buttons to kennel display.
     private int buttonCount = 0; // start with no buttons
 
-    public void addAnimalToDisplay(Animal animal) {
+    public void addKennelToDisplay(Kennel kennel) {
+
+        String buttonText = kennel.getCurrentAnimal() == null ? "Empty" : kennel.getCurrentAnimal().getName();
 
         if (buttonCount % 4 == 0) { // add new row
-            Button button = new Button(animal.getName());
+            Button button = new Button(buttonText);
             button.setStyle("-fx-alignment: CENTER; -fx-pref-width: 140;");
             kennelGridPane.addRow((buttonCount / 4), button);
             buttonCount++;
         }
         else { // dont add row, just add to next empty column
-            Button button = new Button(animal.getName());
+            Button button = new Button(buttonText);
             button.setStyle("-fx-alignment: CENTER; -fx-pref-width: 140; ");
 
             kennelGridPane.add(button, buttonCount % 4, buttonCount / 4);
