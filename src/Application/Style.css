@@ -35,6 +35,34 @@ Dashboard.fxml
 /**
 Patients.fxml
  */
+#displayPatientsTableView,
+#displayPatientsTableView .table-row-cell{
+  -fx-background-color: transparent;
+  -fx-table-cell-border-color: transparent;
+}
+
+#displayPatientsTableView .table-row-cell:selected {
+  -fx-background-color: #333333;
+  -fx-table-cell-border-color: transparent;
+}
+
+#displayPatientsTableView .column-header,
+#displayPatientsTableView .column-header .label{
+  -fx-background-color: #212221;
+  -fx-text-fill: #ddedf4;
+}
+
+#displayPatientsTableView *.scroll-bar:horizontal *.increment-button,
+#displayPatientsTableView *.scroll-bar:horizontal *.decrement-button,
+#displayPatientsTableView *.scroll-bar:horizontal *.increment-arrow,
+#displayPatientsTableView *.scroll-bar:horizontal *.decrement-arrow{
+  -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-shape: null;
+}
+
 #scrollPane {
   -fx-background-color: #212221;
   -fx-background: #212221;
