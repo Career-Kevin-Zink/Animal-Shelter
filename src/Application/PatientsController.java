@@ -10,19 +10,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class PatientsController {
 
     @FXML
-    private ScrollPane displayPatientsScrollPane;
-    @FXML
-    private GridPane displayPatientsTitleGridPane;
-    @FXML
-    private GridPane displayPatientsGridPane;
+    private TableView<Animal> displayPatientsTableView;
     @FXML
     private Button dashboardButton;
     @FXML
@@ -31,6 +27,14 @@ public class PatientsController {
     private Button addPatientButton;
 
     public void initialize() {
+
+        displayPatientsTableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("animalID"));
+        displayPatientsTableView.getColumns().get(0).setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center;");
+        displayPatientsTableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
+        displayPatientsTableView.getColumns().get(1).setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center;");
+        displayPatientsTableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("species"));
+        displayPatientsTableView.getColumns().get(2).setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center;");
+
         for (Animal animal : Database.animals.values()) {
             addAnimalToDisplay(animal);
         }
@@ -66,17 +70,6 @@ public class PatientsController {
         window.show();
     }
 
-    // Add Animal to display list
-    public void addAnimalToDisplay(Animal animal) {
-        Label id = new Label(String.valueOf(animal.getAnimalID()));
-        Label name = new Label(animal.getName());
-        Label species = new Label(animal.getSpecies());
-        id.setStyle("-fx-alignment: CENTER; -fx-pref-width: 164.0; -fx-pref-height: 17.0");
-        name.setStyle("-fx-alignment: CENTER; -fx-pref-width: 164.0; -fx-pref-height: 17.0");
-        species.setStyle("-fx-alignment: CENTER; -fx-pref-width: 164.0; -fx-pref-height: 17.0");
-        displayPatientsGridPane.addRow(displayPatientsGridPane.getChildren().size() / 3, id, name, species);
-    }
-
     // Go to Kennel
     public void kennelButtonPressed(ActionEvent event) throws IOException {
         Parent kennelParent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
@@ -86,5 +79,10 @@ public class PatientsController {
 
         window.setScene(kennelScene);
         window.show();
+    }
+
+    // Add Animal to display list
+    public void addAnimalToDisplay(Animal animal) {
+        displayPatientsTableView.getItems().add(animal);
     }
 }
