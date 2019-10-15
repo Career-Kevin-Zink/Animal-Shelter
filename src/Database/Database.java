@@ -51,6 +51,23 @@ public class Database {
     }
 
     /**
+     *  Updates the database with the new kennel information.
+     */
+    public static void updateKennel(Kennel kennel) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+            PreparedStatement pstmt = connection.prepareStatement("UPDATE Kennels SET currentAnimal=? WHERE KennelID=?");
+            pstmt.setInt(1, (kennel.getCurrentAnimal() == null) ? -1 : kennel.getCurrentAnimal().getAnimalID());
+            pstmt.setInt(2, kennel.getKennelID());
+            pstmt.executeUpdate();
+        }
+        catch (Exception ex) {
+            System.out.println("Database Exception: Failed to updateKennel.\nReason: " + ex.toString() + "\n\n\n");
+            ex.printStackTrace();
+        }
+    }
+
+    /**
      * Loads Animals and Kennels from the database.
      */
     public static void loadAll() {
@@ -87,10 +104,10 @@ public class Database {
                     Kennel kennel;
                     if (currentAnimal == -1) {
                         // No animal, so empty constructor.
-                        kennel = new Kennel();
+                        kennel = new Kennel(kennelID);
                     } else {
                         // get animal info from animals hashmap where key = currentAnimal id
-                        kennel = new Kennel(animals.get(currentAnimal));
+                        kennel = new Kennel(kennelID, animals.get(currentAnimal));
                     }
                     kennels.put(kennelID, kennel);
                 }
