@@ -11,165 +11,174 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Application/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.AddPatientController">
-    <top>
-        <ButtonBar id="buttonBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <buttons>
-            <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed" text="Kennel" />
-                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed" text="Dashboard" />
-                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed" style="-fx-background-color: #1181B2;" text="Patients" />
-            </buttons>
-        </ButtonBar>
-    </top>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="New Patient">
-               <VBox.margin>
-                  <Insets left="20.0" top="5.0" />
-               </VBox.margin>
+<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+  minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Application/Style.css"
+  xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="Application.AddPatientController">
+  <top>
+    <ButtonBar id="buttonBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="600.0"
+      BorderPane.alignment="CENTER">
+      <buttons>
+        <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed"
+          style="-fx-background-color: #1181B2;" text="Patients"/>
+        <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed"
+          text="Kennel"/>
+        <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed"
+          text="Dashboard"/>
+      </buttons>
+    </ButtonBar>
+  </top>
+  <center>
+    <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <children>
+        <Label text="New Patient">
+          <VBox.margin>
+            <Insets left="20.0" top="5.0"/>
+          </VBox.margin>
+        </Label>
+        <HBox prefHeight="25.0" prefWidth="600.0">
+          <children>
+            <Label fx:id="newPatientNameLabel" text="Name" textFill="#ddedf4">
+              <font>
+                <Font name="Lato Bold" size="14.0"/>
+              </font>
+              <HBox.margin>
+                <Insets left="20.0" top="10.0"/>
+              </HBox.margin>
             </Label>
-            <HBox prefHeight="25.0" prefWidth="600.0">
-               <children>
-                  <Label fx:id="newPatientNameLabel" text="Name" textFill="#ddedf4">
-                     <font>
-                        <Font name="Lato Bold" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="newPatientSpeciesLabel" text="Species" textFill="#ddedf4">
-                     <font>
-                        <Font name="Lato Bold" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="240.0" top="10.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="27.0" prefWidth="600.0">
-               <children>
-                  <TextField fx:id="newPatientName" prefHeight="25.0" prefWidth="250.0">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <TextField fx:id="newPatientSpecies" prefHeight="25.0" prefWidth="251.0" style="-fx-background-color: #DDEDF4;">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="600.0">
-               <children>
-                  <Label fx:id="newPatientSexLabel" text="Sex" textFill="#ddedf4">
-                     <font>
-                        <Font name="Lato Bold" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="newPatientColorLabel" text="Color" textFill="#ddedf4">
-                     <font>
-                        <Font name="Lato Bold" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="110.0" top="10.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="19.0" prefWidth="600.0">
-               <children>
-                  <ChoiceBox fx:id="newPatientSex" prefHeight="25.0" prefWidth="100.0">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </ChoiceBox>
-                  <TextField fx:id="newPatientColor" prefHeight="25.0" prefWidth="400.0">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox prefHeight="17.0" prefWidth="600.0">
-               <children>
-                  <Label fx:id="newPatientBreedLabel" text="Breed" textFill="#ddedf4">
-                     <font>
-                        <Font name="Lato Bold" size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="20.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="newPatientAgeLabel" text="Age" textFill="#ddedf4">
-                     <font>
-                        <Font name="Lato Bold" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="245.0" top="10.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="10.0" prefWidth="600.0">
-               <children>
-                  <TextField fx:id="newPatientBreed" prefHeight="25.0" prefWidth="250.0">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <TextField fx:id="newPatientAge" prefHeight="25.0" prefWidth="253.0">
-                     <HBox.margin>
-                        <Insets left="29.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox prefHeight="0.0" prefWidth="600.0">
-               <children>
-                  <Label fx:id="newPatientMicrochipLabel" text="Microchip #:" textFill="#ddedf4">
-                     <font>
-                        <Font name="Lato Bold" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="0.0" prefWidth="600.0">
-               <children>
-                  <TextField fx:id="newPatientMicrochip" prefHeight="25.0" prefWidth="532.0">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox prefHeight="0.0" prefWidth="600.0">
-               <children>
-                  <Button fx:id="savePatientButton" mnemonicParsing="false" onAction="#savePatientButtonPushed" text="Save Patient">
-                     <HBox.margin>
-                        <Insets left="20.0" top="30.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Label fx:id="requiredFieldsAlertLabel" textFill="red">
-                     <font>
-                        <Font name="Lato Bold" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" top="30.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </center>
+            <Label fx:id="newPatientSpeciesLabel" text="Species" textFill="#ddedf4">
+              <font>
+                <Font name="Lato Bold" size="14.0"/>
+              </font>
+              <HBox.margin>
+                <Insets left="240.0" top="10.0"/>
+              </HBox.margin>
+            </Label>
+          </children>
+        </HBox>
+        <HBox prefHeight="27.0" prefWidth="600.0">
+          <children>
+            <TextField fx:id="newPatientName" prefHeight="25.0" prefWidth="250.0">
+              <HBox.margin>
+                <Insets left="20.0"/>
+              </HBox.margin>
+            </TextField>
+            <TextField fx:id="newPatientSpecies" prefHeight="25.0" prefWidth="251.0"
+              style="-fx-background-color: #DDEDF4;">
+              <HBox.margin>
+                <Insets left="30.0"/>
+              </HBox.margin>
+            </TextField>
+          </children>
+        </HBox>
+        <HBox prefHeight="25.0" prefWidth="600.0">
+          <children>
+            <Label fx:id="newPatientSexLabel" text="Sex" textFill="#ddedf4">
+              <font>
+                <Font name="Lato Bold" size="14.0"/>
+              </font>
+              <HBox.margin>
+                <Insets left="20.0" top="10.0"/>
+              </HBox.margin>
+            </Label>
+            <Label fx:id="newPatientColorLabel" text="Color" textFill="#ddedf4">
+              <font>
+                <Font name="Lato Bold" size="14.0"/>
+              </font>
+              <HBox.margin>
+                <Insets left="110.0" top="10.0"/>
+              </HBox.margin>
+            </Label>
+          </children>
+        </HBox>
+        <HBox prefHeight="19.0" prefWidth="600.0">
+          <children>
+            <ChoiceBox fx:id="newPatientSex" prefHeight="25.0" prefWidth="100.0">
+              <HBox.margin>
+                <Insets left="20.0"/>
+              </HBox.margin>
+            </ChoiceBox>
+            <TextField fx:id="newPatientColor" prefHeight="25.0" prefWidth="400.0">
+              <HBox.margin>
+                <Insets left="30.0"/>
+              </HBox.margin>
+            </TextField>
+          </children>
+        </HBox>
+        <HBox prefHeight="17.0" prefWidth="600.0">
+          <children>
+            <Label fx:id="newPatientBreedLabel" text="Breed" textFill="#ddedf4">
+              <font>
+                <Font name="Lato Bold" size="14.0"/>
+              </font>
+              <padding>
+                <Insets left="20.0" top="10.0"/>
+              </padding>
+            </Label>
+            <Label fx:id="newPatientAgeLabel" text="Age" textFill="#ddedf4">
+              <font>
+                <Font name="Lato Bold" size="14.0"/>
+              </font>
+              <HBox.margin>
+                <Insets left="245.0" top="10.0"/>
+              </HBox.margin>
+            </Label>
+          </children>
+        </HBox>
+        <HBox prefHeight="10.0" prefWidth="600.0">
+          <children>
+            <TextField fx:id="newPatientBreed" prefHeight="25.0" prefWidth="250.0">
+              <HBox.margin>
+                <Insets left="20.0"/>
+              </HBox.margin>
+            </TextField>
+            <TextField fx:id="newPatientAge" prefHeight="25.0" prefWidth="253.0">
+              <HBox.margin>
+                <Insets left="29.0"/>
+              </HBox.margin>
+            </TextField>
+          </children>
+        </HBox>
+        <HBox prefHeight="0.0" prefWidth="600.0">
+          <children>
+            <Label fx:id="newPatientMicrochipLabel" text="Microchip #:" textFill="#ddedf4">
+              <font>
+                <Font name="Lato Bold" size="14.0"/>
+              </font>
+              <HBox.margin>
+                <Insets left="20.0" top="10.0"/>
+              </HBox.margin>
+            </Label>
+          </children>
+        </HBox>
+        <HBox prefHeight="0.0" prefWidth="600.0">
+          <children>
+            <TextField fx:id="newPatientMicrochip" prefHeight="25.0" prefWidth="532.0">
+              <HBox.margin>
+                <Insets left="20.0"/>
+              </HBox.margin>
+            </TextField>
+          </children>
+        </HBox>
+        <HBox prefHeight="0.0" prefWidth="600.0">
+          <children>
+            <Button fx:id="savePatientButton" mnemonicParsing="false"
+              onAction="#savePatientButtonPushed" text="Save Patient">
+              <HBox.margin>
+                <Insets left="20.0" top="30.0"/>
+              </HBox.margin>
+            </Button>
+            <Label fx:id="requiredFieldsAlertLabel" textFill="red">
+              <font>
+                <Font name="Lato Bold" size="14.0"/>
+              </font>
+              <HBox.margin>
+                <Insets left="20.0" top="30.0"/>
+              </HBox.margin>
+            </Label>
+          </children>
+        </HBox>
+      </children>
+    </VBox>
+  </center>
 </BorderPane>
