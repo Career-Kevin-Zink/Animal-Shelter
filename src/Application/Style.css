@@ -124,3 +124,36 @@ AddPatient.fxml
   -fx-text-fill: #212221;
 }
 
+.tab-pane .tab-header-area .tab-header-background {
+  -fx-background-color: #212221;
+}
+
+.tab-pane {
+  -fx-tab-min-width: 150px;
+}
+
+.tab {
+  -fx-background-insets: 0 1 0 1, 0, 0;
+}
+
+.tab-pane .tab {
+  -fx-background-color: #e6e6e6;
+}
+
+.tab-pane .tab:selected {
+  -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label {
+  -fx-alignment: CENTER;
+  -fx-text-fill: #828282;
+  -fx-font-family: "Lato";
+  -fx-font-size: 16;
+  -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+  -fx-alignment: CENTER;
+  -fx-text-fill: #DDEDF4;
+}
+
