@@ -63,6 +63,24 @@ Patients.fxml
   -fx-shape: null;
 }
 
+.menu-button > .arrow-button,
+.menu-button > .arrow-button > .arrow {
+  -fx-padding: 0;
+}
+
+.menu-item, .context-menu  {
+  -fx-background-color: #1181B2;
+}
+
+.menu-item .label {
+  -fx-text-fill: #ddedf4;
+}
+
+.menu-item:focused {
+  -fx-background-color: #1181F2;
+  -fx-text-fill: #ddedf4;
+}
+
 #scrollPane {
   -fx-background-color: #212221;
   -fx-background: #212221;
