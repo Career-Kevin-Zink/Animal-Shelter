@@ -119,10 +119,17 @@ public class KennelController {
 
     public void addKennelToDisplay(Kennel kennel) {
 
+
+
         String buttonText = kennel.getCurrentAnimal() == null ? "Empty" : kennel.getCurrentAnimal().getName();
         Button button = new Button(buttonText);
         button.setUserData(kennel);
-        button.setOnAction(e -> {displayKennelViewer((Kennel) button.getUserData());
+        button.setOnAction(e -> {
+
+            if(kennel.getCurrentAnimal() != null)
+                displayKennelViewer((Kennel) button.getUserData());
+            else
+                System.out.println("No animal in kennel.");
         });
         if (buttonCount % 4 == 0) { // add new row
             kennelGridPane.addRow((buttonCount / 4), button);
@@ -148,7 +155,7 @@ public class KennelController {
                 new Label("Temperment: " + kennel.getCurrentAnimal().getTemperment()),
                 new Label("Microchip #: " + kennel.getCurrentAnimal().getMicrochip()),
                 new Label("Arrival Date: " + kennel.getCurrentAnimal().getArrivalDate()),
-                new Label("Adoptable: " + kennel.getCurrentAnimal().getAdoptable()),
+                new Label("Adoptable: " + (kennel.getCurrentAnimal().getAdoptable().compareTo("True") == 0 ? "Yes" : "No")),
         };
 
 
@@ -173,7 +180,7 @@ public class KennelController {
     }
     @FXML
     void escapeBtnPressed(ActionEvent event) {
-        
+
         kennelviewPane.setVisible(false);
         idVbox.getChildren().clear();
         nameVbox.getChildren().clear();
