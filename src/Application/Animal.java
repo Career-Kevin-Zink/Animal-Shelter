@@ -115,11 +115,16 @@ public class Animal {
         return adoptable;
     }
 
+    public String getArrivalDate() {
+        return arrivalDate;
+    }
+
     public int getAnimalID() {
         return animalID;
     }
 
     //Methods
+
 
     public static List<String> displayAnimalData(int selectedCollarID) throws SQLException, ClassNotFoundException {   // takes a CollarID and uses that ID for query to specific animal
 
