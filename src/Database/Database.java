@@ -3,6 +3,10 @@ package Database;
 import Application.Animal;
 import Application.Kennel;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.HashMap;
 
@@ -51,7 +55,7 @@ public class Database {
     }
 
     /**
-     *  Updates the database with the new kennel information.
+     * Updates the database with the new kennel information.
      */
     public static void updateKennel(Kennel kennel) {
         try {
@@ -60,8 +64,7 @@ public class Database {
             pstmt.setInt(1, (kennel.getCurrentAnimal() == null) ? -1 : kennel.getCurrentAnimal().getAnimalID());
             pstmt.setInt(2, kennel.getKennelID());
             pstmt.executeUpdate();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("Database Exception: Failed to updateKennel.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
@@ -121,5 +124,34 @@ public class Database {
             System.out.println("Database Exception: Failed to loadAll.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
+    }
+
+    public static boolean tryLogin(String user, String pass) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+
+            if (connection != null) {
+                Statement statement = connection.createStatement();
+                ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE Username=\"%s\" AND Password=\"%s\"", user.toLowerCase(), encrypt(pass)));
+
+                while (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+        return false;
+    }
+
+    public static String encrypt(String string) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        BigInteger bi = new BigInteger(1, md.digest(string.getBytes(StandardCharsets.UTF_8)));
+        StringBuilder sb = new StringBuilder(bi.toString(16));
+
+        while (sb.length() < 32) {
+            sb.insert(0, '0');
+        }
+        return sb.toString();
     }
 }

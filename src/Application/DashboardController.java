@@ -1,21 +1,41 @@
 package Application;
 
+import Database.Database;
 import java.io.IOException;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class DashboardController {
 
     @FXML
+    private Label dashboardWelcomeLabel;
+    @FXML
+    private Label loginFailLabel;
+    @FXML
     private Button patientsButton;
     @FXML
     private Button dashboardButton;
+    @FXML
+    private TextField loginUsernameField;
+    @FXML
+    private PasswordField loginPasswordField;
+    @FXML
+    private Pane loginPane;
 
     // Patients Button Pressed
     public void patientsButtonPressed(ActionEvent event) throws IOException {
@@ -48,5 +68,35 @@ public class DashboardController {
 
         window.setScene(kennelScene);
         window.show();
+    }
+
+    @FXML // attempt to login
+    public void loginButtonPushed(ActionEvent event) {
+        if (loginUsernameField.getText().trim().isEmpty() || loginPasswordField.getText().trim().isEmpty()) {
+            doLoginErrorAnim();
+            return;
+        } else {
+            if(Database.tryLogin(loginUsernameField.getText(), loginPasswordField.getText())) {
+                dashboardWelcomeLabel.setText("Welcome JColicchio!");
+                loginPane.setVisible(false);
+                dashboardWelcomeLabel.setVisible(true);
+            }
+            else {
+                doLoginErrorAnim();
+            }
+        }
+    }
+
+    private void doLoginErrorAnim() {
+        loginFailLabel.setVisible(true);
+        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                loginFailLabel.setVisible(false);
+            }
+        }));
+        delay.setCycleCount(1);
+        delay.play();
     }
 }

@@ -2,16 +2,55 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 
-<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Application/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.DashboardController">
+<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" stylesheets="@Application/Style.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Application.DashboardController">
     <top>
         <ButtonBar id="buttonBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <buttons>
-            <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed" text="Kennel" />
-                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPressed" style="-fx-background-color: #1181B2;" text="Patients" textAlignment="CENTER" />
-            <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPressed" text="Dashboard" />
+                <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed" text="Kennel"/>
+                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPressed"
+                        style="-fx-background-color: #1181B2;" text="Patients" textAlignment="CENTER"/>
+                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPressed"
+                        text="Dashboard"/>
             </buttons>
         </ButtonBar>
     </top>
+    <center>
+        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="dashboardWelcomeLabel" alignment="CENTER" layoutX="42.0" layoutY="15.0"
+                               prefHeight="100.0" prefWidth="513.0" style="-fx-font-size: 24px;" text=""
+                               visible="false"/>
+                    </children>
+                </Pane>
+                <Pane fx:id="loginPane" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Label layoutX="255.0" layoutY="42.0" text="Employee Login"/>
+                        <Label layoutX="195.0" layoutY="86.0" text="Username:"/>
+                        <Label layoutX="196.0" layoutY="119.0" text="Password:"/>
+                        <TextField fx:id="loginUsernameField" layoutX="265.0" layoutY="82.0"
+                                   onAction="#loginButtonPushed"/>
+                        <PasswordField fx:id="loginPasswordField" layoutX="265.0" layoutY="115.0"
+                                       onAction="#loginButtonPushed" prefHeight="25.0" prefWidth="159.0"/>
+                        <Button layoutX="376.0" layoutY="154.0" mnemonicParsing="false" onAction="#loginButtonPushed"
+                                style="-fx-font-size: 12px;" text="Login"/>
+                        <Label fx:id="loginFailLabel" alignment="CENTER" layoutX="200.0" layoutY="196.0"
+                               prefHeight="17.0" prefWidth="226.0" visible="false"
+                               text="Username or Password invalid."/>
+                    </children>
+                </Pane>
+            </children>
+        </StackPane>
+    </center>
 </BorderPane>
