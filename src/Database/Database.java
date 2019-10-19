@@ -15,6 +15,21 @@ public class Database {
     public static HashMap<Integer, Animal> animals = new HashMap<Integer, Animal>();
     public static HashMap<Integer, Kennel> kennels = new HashMap<Integer, Kennel>();
 
+    public static void saveNewPatient(Animal animal) {
+        saveNewPatient(
+                animal.getName(),
+                animal.getSpecies(),
+                animal.getTemperment(),
+                animal.getSex(),
+                animal.getColor(),
+                animal.getBreed(),
+                animal.getMicrochip(),
+                animal.getAge(),
+                animal.getWeight(),
+                animal.getArrivalDate(),
+                animal.getAdoptable());
+    }
+
     public static void saveNewPatient(String name, String species, String temperment, String sex,
                                       String color, String breed, String microchip, String age,
                                       String weight, String arrivalDate, String adoptable) {
@@ -36,7 +51,8 @@ public class Database {
                 pstmt.setString(7, microchip);
                 pstmt.setString(8, age);
                 pstmt.setString(9, weight);
-                pstmt.setString(10, arrivalDate);
+                pstmt.setString(10,
+                        (arrivalDate == null ? java.util.Calendar.getInstance().getTime().toString() : arrivalDate));
                 pstmt.setString(11, adoptable);
 
                 // Execute the query & catch generated key.
