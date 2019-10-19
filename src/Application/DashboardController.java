@@ -1,6 +1,7 @@
 package Application;
 
 import Database.Database;
+
 import java.io.IOException;
 
 import javafx.animation.KeyFrame;
@@ -72,16 +73,16 @@ public class DashboardController {
 
     @FXML // attempt to login
     public void loginButtonPushed(ActionEvent event) {
+        // @TODO The login system has no influence over access right now. Right now it is just the login page.
         if (loginUsernameField.getText().trim().isEmpty() || loginPasswordField.getText().trim().isEmpty()) {
             doLoginErrorAnim();
             return;
         } else {
-            if(Database.tryLogin(loginUsernameField.getText(), loginPasswordField.getText())) {
-                dashboardWelcomeLabel.setText("Welcome JColicchio!");
+            if (Database.tryLogin(loginUsernameField.getText(), loginPasswordField.getText())) {
+                dashboardWelcomeLabel.setText(String.format("Welcome %s!", loginUsernameField.getText().toLowerCase()));
                 loginPane.setVisible(false);
                 dashboardWelcomeLabel.setVisible(true);
-            }
-            else {
+            } else {
                 doLoginErrorAnim();
             }
         }
