@@ -102,7 +102,7 @@ public class AddPatientController {
         window.setScene(patientsScene);
         window.show();
     }
-    
+
     // Go to Kennel
     public void kennelButtonPressed(ActionEvent event) throws IOException {
         Parent kennelParent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
@@ -173,15 +173,8 @@ public class AddPatientController {
             requiredFieldsAlertLabel.setText("(Red fields are required)");
             allFieldsFilled = false;
         } else newPatientTemperamentLabel.setStyle("-fx-text-fill: #ddedf4");
-
-        /*if (newPatientAdoptable.getText().trim().isEmpty()) {
-            newPatientAdoptableLabel.setStyle("-fx-text-fill: red");
-            requiredFieldsAlertLabel.setText("(Red fields are required)");
-            allFieldsFilled = false;
-        } else newPatientAdoptableLabel.setStyle("-fx-text-fill: #ddedf4");*/
-
-        String adoptableRadio_On = "Adoptable";
-        String adoptableRadio_Off = "Unadoptable";
+        String adoptableRadio_On = "True";
+        String adoptableRadio_Off = "False";
 
         if (allFieldsFilled) {
             // Passed the other checks, so create new animal in database
@@ -191,6 +184,9 @@ public class AddPatientController {
                             newPatientMicrochip.getText(), newPatientAge.getText(), newPatientWeight.getText(),
                             java.util.Calendar.getInstance().getTime().toString(),
                             newPatientAdoptable.isSelected()?adoptableRadio_On:adoptableRadio_Off );
+
+            // Now that the animal has been added, send user back to the patients page.
+            patientsButtonPushed(event);
         }
     }
 }
