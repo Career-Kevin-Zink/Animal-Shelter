@@ -1,14 +1,12 @@
 package Application;
 
 import java.io.IOException;
-
 import Database.Database;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -119,7 +117,6 @@ public class PatientsController {
                         remove.setOnAction(e -> {
                             System.out.println("DO REMOVE PATIENT STUFF HERE");
                         });
-
                         optionsBtn.showingProperty().addListener(new ChangeListener<Boolean>() {
                             @Override
                             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -147,6 +144,7 @@ public class PatientsController {
 
         options.setCellFactory(cellFactory);
         options.setEditable(false);
+        options.setSortable(false);
         options.setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center; -fx-pref-width: 100.0;");
         displayPatientsTableView.getColumns().add(options);
     }
