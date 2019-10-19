@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -23,6 +24,8 @@ public class AddPatientController {
 
     private ObservableList sexChoiceBox = FXCollections.observableArrayList("Male",
             "Female");
+    private ObservableList temperamentChoiceBox = FXCollections.observableArrayList("Friendly",
+        "Neutral","Aggressive");
 
     @FXML
     private Button dashboardButton;
@@ -60,11 +63,24 @@ public class AddPatientController {
     private Button savePatientButton;
     @FXML
     private Label requiredFieldsAlertLabel;
+    @FXML
+    private ChoiceBox<String> newPatientTemperament;
+    @FXML
+    private TextField newPatientWeight;
+    @FXML
+    private RadioButton newPatientAdoptable;
+    @FXML
+    private Label newPatientAdoptableLabel;
+    @FXML
+    private Label newPatientTemperamentLabel;
+    @FXML
+    private Label newPatientWeightLabel;
 
     // Load String values into Sex ChoiceBox.
     @FXML
     private void initialize() throws Exception {
         newPatientSex.setItems(sexChoiceBox);
+        newPatientTemperament.setItems(temperamentChoiceBox);
     }
 
     // Return to Dashboard
@@ -146,13 +162,35 @@ public class AddPatientController {
             allFieldsFilled = false;
         } else newPatientMicrochipLabel.setStyle("-fx-text-fill: #ddedf4");
 
+        if (newPatientWeight.getText().trim().isEmpty()) {
+            newPatientWeightLabel.setStyle("-fx-text-fill: red");
+            requiredFieldsAlertLabel.setText("(Red fields are required)");
+            allFieldsFilled = false;
+        } else newPatientWeightLabel.setStyle("-fx-text-fill: #ddedf4");
+
+        if (newPatientTemperament.getValue() == null) {
+            newPatientTemperamentLabel.setStyle("-fx-text-fill: red");
+            requiredFieldsAlertLabel.setText("(Red fields are required)");
+            allFieldsFilled = false;
+        } else newPatientTemperamentLabel.setStyle("-fx-text-fill: #ddedf4");
+
+        /*if (newPatientAdoptable.getText().trim().isEmpty()) {
+            newPatientAdoptableLabel.setStyle("-fx-text-fill: red");
+            requiredFieldsAlertLabel.setText("(Red fields are required)");
+            allFieldsFilled = false;
+        } else newPatientAdoptableLabel.setStyle("-fx-text-fill: #ddedf4");*/
+
+        String adoptableRadio_On = "Adoptable";
+        String adoptableRadio_Off = "Unadoptable";
+
         if (allFieldsFilled) {
             // Passed the other checks, so create new animal in database
             Database
-                    .saveNewPatient(newPatientName.getText(), newPatientSpecies.getText(), "TEMPERAMENT HERE",
+                    .saveNewPatient(newPatientName.getText(), newPatientSpecies.getText(), newPatientTemperament.getValue(),
                             newPatientSex.getValue(), newPatientColor.getText(), newPatientBreed.getText(),
-                            newPatientMicrochip.getText(), newPatientAge.getText(), "WEIGHT HERE",
-                            java.util.Calendar.getInstance().getTime().toString(), "ADOPTABLE HERE");
+                            newPatientMicrochip.getText(), newPatientAge.getText(), newPatientWeight.getText(),
+                            java.util.Calendar.getInstance().getTime().toString(),
+                            newPatientAdoptable.isSelected()?adoptableRadio_On:adoptableRadio_Off );
         }
     }
 }
