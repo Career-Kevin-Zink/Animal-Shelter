@@ -12,7 +12,7 @@
  **Coming soon...**
 
 ## Diagrams
- **Coming soon...**
+ ![Class_Diagram](https://user-images.githubusercontent.com/54293097/67154127-495f3980-f2c4-11e9-88b8-8d44556aa2fe.png)
 
 ## Getting Started
  **Coming soon...**
