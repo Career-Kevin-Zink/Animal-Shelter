@@ -73,7 +73,7 @@ public class DashboardController {
 
     @FXML // attempt to login
     public void loginButtonPushed(ActionEvent event) {
-        // @TODO The login system has no influence over access right now. Right now it is just the login page.
+        // The login system has no influence over access right now. Right now it is just visual.
         if (loginUsernameField.getText().trim().isEmpty() || loginPasswordField.getText().trim().isEmpty()) {
             doLoginErrorAnim();
             return;

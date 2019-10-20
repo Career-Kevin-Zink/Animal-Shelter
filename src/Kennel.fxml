@@ -14,98 +14,109 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #212221;" stylesheets="@Application/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.KennelController">
-  <top>
-    <ButtonBar fx:id="buttonBar" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-      <buttons>
-        <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed" text="Kennel" />
-        <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPressed" text="Patients" />
-        <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPressed" text="Dashboard" />
-      </buttons>
-    </ButtonBar>
-  </top>
-  <center>
-    <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-      <children>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-          <tabs>
-            <Tab text="Room1">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <GridPane fx:id="kennelGridPane" prefHeight="282.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      </columnConstraints>
-                    </GridPane>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Room2">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <GridPane fx:id="kennelGridPane2" prefHeight="282.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      </columnConstraints>
-                    </GridPane>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-          </tabs>
-        </TabPane>
-        <Pane fx:id="kennelviewPane" prefHeight="291.0" prefWidth="483.0">
-          <children>
-            <VBox layoutX="38.0" layoutY="57.0" prefHeight="258.0" prefWidth="507.0">
-              <children>
-                <Label fx:id="kennelviewKennelNumberLabel" alignment="CENTER" prefHeight="17.0" prefWidth="507.0" text="Kennel #&lt;insert id?&gt;" />
-                        <HBox prefHeight="38.0" prefWidth="507.0">
-                           <children>
-                              <VBox fx:id="nameVbox" prefHeight="70.0" prefWidth="80.0" />
-                              <VBox fx:id="idVbox" prefHeight="70.0" prefWidth="174.0" />
-                              <VBox fx:id="colorVbox" prefHeight="70.0" prefWidth="250.0" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="40.0" prefWidth="507.0">
-                           <children>
-                              <VBox fx:id="sexVbox" prefHeight="40.0" prefWidth="175.0" />
-                              <VBox fx:id="speciesVbox" prefHeight="40.0" prefWidth="172.0" />
-                              <VBox fx:id="breedVbox" prefHeight="40.0" prefWidth="163.0" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="37.0" prefWidth="507.0">
-                           <children>
-                              <VBox fx:id="ageVbox" prefHeight="37.0" prefWidth="218.0" />
-                              <VBox fx:id="weightVbox" prefHeight="200.0" prefWidth="100.0" />
-                              <VBox fx:id="microChipVbox" prefHeight="37.0" prefWidth="299.0" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="43.0" prefWidth="507.0">
-                           <children>
-                              <VBox fx:id="arrivalVbox" prefHeight="43.0" prefWidth="522.0" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="41.0" prefWidth="507.0">
-                           <children>
-                              <VBox fx:id="tempermentVbox" prefHeight="41.0" prefWidth="265.0" />
-                              <VBox fx:id="adoptableVbox" prefHeight="41.0" prefWidth="245.0" />
-                           </children>
-                        </HBox>
-              </children>
-            </VBox>
-                  <Button fx:id="escapeBtn" layoutX="552.0" layoutY="8.0" mnemonicParsing="false" onAction="#escapeBtnPressed" text="X" />
-          </children>
-        </Pane>
-      </children>
-    </StackPane>
-  </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" style="-fx-background-color: #212221;" stylesheets="@Application/Style.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Application.KennelController">
+    <top>
+        <ButtonBar fx:id="buttonBar" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <buttons>
+                <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed" text="Kennel"/>
+                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPressed"
+                        text="Patients"/>
+                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPressed"
+                        text="Dashboard"/>
+            </buttons>
+        </ButtonBar>
+    </top>
+    <center>
+        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Room1">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <GridPane fx:id="kennelGridPane" prefHeight="282.0" prefWidth="600.0"
+                                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                            </columnConstraints>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Room2">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <GridPane fx:id="kennelGridPane2" prefHeight="282.0" prefWidth="600.0"
+                                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                            </columnConstraints>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+                <Pane fx:id="kennelviewPane" prefHeight="291.0" prefWidth="483.0">
+                    <children>
+                        <VBox layoutX="38.0" layoutY="57.0" prefHeight="258.0" prefWidth="507.0">
+                            <children>
+                                <Label fx:id="kennelviewKennelNumberLabel" alignment="CENTER" prefHeight="17.0"
+                                       prefWidth="507.0" text="Kennel #&lt;insert id?&gt;"/>
+                                <HBox prefHeight="38.0" prefWidth="507.0">
+                                    <children>
+                                        <VBox fx:id="nameVbox" prefHeight="70.0" prefWidth="80.0"/>
+                                        <VBox fx:id="idVbox" prefHeight="70.0" prefWidth="174.0"/>
+                                        <VBox fx:id="colorVbox" prefHeight="70.0" prefWidth="250.0"/>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="40.0" prefWidth="507.0">
+                                    <children>
+                                        <VBox fx:id="sexVbox" prefHeight="40.0" prefWidth="175.0"/>
+                                        <VBox fx:id="speciesVbox" prefHeight="40.0" prefWidth="172.0"/>
+                                        <VBox fx:id="breedVbox" prefHeight="40.0" prefWidth="163.0"/>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="37.0" prefWidth="507.0">
+                                    <children>
+                                        <VBox fx:id="ageVbox" prefHeight="37.0" prefWidth="218.0"/>
+                                        <VBox fx:id="weightVbox" prefHeight="200.0" prefWidth="100.0"/>
+                                        <VBox fx:id="microChipVbox" prefHeight="37.0" prefWidth="299.0"/>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="43.0" prefWidth="507.0">
+                                    <children>
+                                        <VBox fx:id="arrivalVbox" prefHeight="43.0" prefWidth="522.0"/>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="41.0" prefWidth="507.0">
+                                    <children>
+                                        <VBox fx:id="tempermentVbox" prefHeight="41.0" prefWidth="265.0"/>
+                                        <VBox fx:id="adoptableVbox" prefHeight="41.0" prefWidth="245.0"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <Button fx:id="escapeBtn" layoutX="552.0" layoutY="8.0" mnemonicParsing="false"
+                                onAction="#escapeBtnPressed" text="X"/>
+                    </children>
+                </Pane>
+            </children>
+        </StackPane>
+    </center>
 </BorderPane>

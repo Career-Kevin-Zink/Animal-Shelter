@@ -1,7 +1,6 @@
 package Application;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +24,7 @@ public class AddPatientController {
     private ObservableList sexChoiceBox = FXCollections.observableArrayList("Male",
             "Female");
     private ObservableList temperamentChoiceBox = FXCollections.observableArrayList("Friendly",
-        "Neutral","Aggressive");
+            "Neutral", "Aggressive");
 
     @FXML
     private Button dashboardButton;
@@ -116,9 +115,8 @@ public class AddPatientController {
 
 
     public void savePatientButtonPushed(ActionEvent event) throws IOException {
-        // Basically the following code sets the label of any field that hasn't been filled in properly to red.
-        // The else statements reset the color to the original color if it has been filled in (in case they fixed 1 but
-        // not all.
+        // The following code sets the label of any field that hasn't been filled in properly to red.
+        // The else statements reset the color to the original color if it has been filled in.
         boolean allFieldsFilled = true;
         if (newPatientName.getText().trim().isEmpty()) {
             newPatientNameLabel.setStyle("-fx-text-fill: red");
@@ -183,7 +181,7 @@ public class AddPatientController {
                             newPatientSex.getValue(), newPatientColor.getText(), newPatientBreed.getText(),
                             newPatientMicrochip.getText(), newPatientAge.getText(), newPatientWeight.getText(),
                             java.util.Calendar.getInstance().getTime().toString(),
-                            newPatientAdoptable.isSelected()?adoptableRadio_On:adoptableRadio_Off );
+                            newPatientAdoptable.isSelected() ? adoptableRadio_On : adoptableRadio_Off);
 
             // Now that the animal has been added, send user back to the patients page.
             patientsButtonPushed(event);

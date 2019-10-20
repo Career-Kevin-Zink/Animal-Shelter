@@ -1,6 +1,7 @@
 package Application;
 
 import java.io.IOException;
+
 import Database.Database;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,7 +28,7 @@ public class PatientsController {
     private Button addPatientButton;
 
     public void initialize() {
-
+        // Set up the animal display columns
         TableColumn<Animal, String> colID = new TableColumn<>("ID");
         colID.setCellValueFactory(new PropertyValueFactory<>("animalID"));
         colID.setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center; -fx-pref-width: 133.0");
@@ -107,6 +108,7 @@ public class PatientsController {
                     private final MenuItem edit = new MenuItem("Edit Patient");
                     private final MenuItem remove = new MenuItem("Remove Patient");
                     private final MenuButton optionsBtn = new MenuButton("...", null, adopt, edit, remove);
+
                     {
                         adopt.setOnAction(e -> {
                             System.out.println("DO ADOPT PATIENT STUFF HERE");

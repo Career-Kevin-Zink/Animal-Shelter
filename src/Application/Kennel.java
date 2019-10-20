@@ -26,7 +26,7 @@ public class Kennel {
     }
 
     public void addAnimal(Animal animal) {
-        if(currentAnimal != null) {
+        if (currentAnimal != null) {
             System.out.println("ERROR: Kennel not empty!");
             return;
         }
@@ -47,13 +47,7 @@ public class Kennel {
 
     @Override
     public String toString() {
-        // using getName for now since we don't store animal id yet
-        String out = "Kennel ID: " + kennelId + (currentAnimal == null ? "" : " Animal ID: " + currentAnimal.getName());
+        String out = "Kennel ID: " + kennelId + (currentAnimal == null ? "" : " Animal ID: " + currentAnimal.getAnimalID());
         return out;
     }
-
-    public static void loadKennels() {
-
-    }
-
 }

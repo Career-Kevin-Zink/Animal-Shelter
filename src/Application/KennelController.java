@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -60,11 +59,8 @@ public class KennelController {
     private VBox tempermentVbox;
     @FXML
     private VBox adoptableVbox;
-
     @FXML
     private VBox colorVbox;
-
-
 
     public void initialize() {
         kennelviewPane.setStyle("-fx-background-color: #000000");
@@ -74,7 +70,7 @@ public class KennelController {
         kennelGridPane.setPadding(new Insets(10, 10, 10, 10)); //margins around the whole grid
         //(top/right/bottom/left)
         for (Kennel kennel : Database.kennels.values()) {
-            addKennelToDisplay(kennel);
+            addKennelToDisplay(kennel); // need to split the animals to a new page every 20 kennels
         }
     }
 
@@ -113,12 +109,10 @@ public class KennelController {
     }
 
 
-
     // Add kennel buttons to kennel display.
     private int buttonCount = 0; // start with no buttons
 
     public void addKennelToDisplay(Kennel kennel) {
-
 
 
         String buttonText = kennel.getCurrentAnimal() == null ? "Empty" : kennel.getCurrentAnimal().getName();
@@ -126,7 +120,7 @@ public class KennelController {
         button.setUserData(kennel);
         button.setOnAction(e -> {
 
-            if(kennel.getCurrentAnimal() != null)
+            if (kennel.getCurrentAnimal() != null)
                 displayKennelViewer((Kennel) button.getUserData());
             else
                 System.out.println("No animal in kennel.");
@@ -178,6 +172,7 @@ public class KennelController {
 
         kennelviewPane.setVisible(true);
     }
+
     @FXML
     void escapeBtnPressed(ActionEvent event) {
 

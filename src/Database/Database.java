@@ -64,9 +64,15 @@ public class Database {
                     animals.put(rs.getInt(1), new Animal(name, species, temperment, sex, color, breed,
                             microchip, age, weight, arrivalDate, adoptable, rs.getInt(1)));
                 }
+
+                // Close connection
+                rs.close();
+                pstmt.close();
+                connection.close();
             }
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            System.out.println("Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
+            ex.printStackTrace();
         }
     }
 
@@ -80,6 +86,10 @@ public class Database {
             pstmt.setInt(1, (kennel.getCurrentAnimal() == null) ? -1 : kennel.getCurrentAnimal().getAnimalID());
             pstmt.setInt(2, kennel.getKennelID());
             pstmt.executeUpdate();
+
+            // Close connection
+            pstmt.close();
+            connection.close();
         } catch (Exception ex) {
             System.out.println("Database Exception: Failed to updateKennel.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
@@ -151,6 +161,10 @@ public class Database {
                 ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE Username=\"%s\" AND Password=\"%s\"", user.toLowerCase(), encrypt(pass)));
 
                 while (rs.next()) {
+                    // Close all connections.
+                    rs.close();
+                    statement.close();
+                    connection.close();
                     return true;
                 }
             }
@@ -160,7 +174,7 @@ public class Database {
         return false;
     }
 
-    public static String encrypt(String string) throws NoSuchAlgorithmException {
+    private static String encrypt(String string) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         BigInteger bi = new BigInteger(1, md.digest(string.getBytes(StandardCharsets.UTF_8)));
         StringBuilder sb = new StringBuilder(bi.toString(16));

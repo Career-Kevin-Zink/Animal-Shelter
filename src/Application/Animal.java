@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Animal {
 
     private String name;
@@ -21,7 +20,7 @@ public class Animal {
     private int animalID;
 
     public Animal() {
-        // probably don't want a constructor with no params
+        // Used for testing only
     }
 
     public Animal(String name, String species, String temperment, String sex,
@@ -54,15 +53,21 @@ public class Animal {
         this.temperment = temperment;
     }
 
-    public void setSex(String sex) { this.sex = sex; }
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public void setColor(String color) {
         this.color = color;
     }
 
-    public void setBreed(String breed) { this.breed = breed; }
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
 
-    public void setMicrochip(String microchip) { this.microchip = microchip; }
+    public void setMicrochip(String microchip) {
+        this.microchip = microchip;
+    }
 
     public void setAge(String age) {
         this.age = age;
@@ -93,15 +98,21 @@ public class Animal {
         return temperment;
     }
 
-    public String getSex() { return sex; }
+    public String getSex() {
+        return sex;
+    }
 
     public String getColor() {
         return color;
     }
 
-    public String getBreed() { return breed; }
+    public String getBreed() {
+        return breed;
+    }
 
-    public String getMicrochip() { return microchip; }
+    public String getMicrochip() {
+        return microchip;
+    }
 
     public String getAge() {
         return age;
@@ -124,11 +135,7 @@ public class Animal {
     }
 
     //Methods
-
-
     public static List<String> displayAnimalData(int selectedCollarID) throws SQLException, ClassNotFoundException {   // takes a CollarID and uses that ID for query to specific animal
-
-
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
         String sql = "SELECT * FROM Animals WHERE CollarID = " + selectedCollarID;
@@ -140,19 +147,15 @@ public class Animal {
         ResultSetMetaData rsmd = res.getMetaData();
         int columnCount = rsmd.getColumnCount();
 
-        List<String> animalView = new ArrayList<String>(); // New ArrayList for Animals data from DB columns to be stored into for viewing
-        while(res.next()){
+        // New ArrayList for Animals data from DB columns to be stored into for viewing
+        List<String> animalView = new ArrayList<String>();
+        while (res.next()) {
             int i = 1;
-            while(i <= columnCount) {
+            while (i <= columnCount) {
                 animalView.add(res.getString(i++));
             }
         }
-        // trying to print each value stored into ArrayList in order to see if it works
-        // System.out.println(animalView);
-
-        return animalView;                       //  returns the animalView ArrayList populated with the data of the entire row
+        //  returns the animalView ArrayList populated with the data of the entire row
+        return animalView;
     }
-
-
-
 }
