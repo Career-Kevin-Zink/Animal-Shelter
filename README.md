@@ -2,7 +2,7 @@
 # Animal-Shelter-Project
 - **The project is an Animal Shelter management software.**
 - **The five contributing authors below made this as a team throughout the semester.**
-- **This project was started Fall of 2019, we are all in our junior year of the software engineering degree at Florida Gulf Coast University.**
+- **This project was started Fall of 2019, we are all in our junior year of the software engineering program at Florida Gulf Coast University.**
 - **This is a team project for CEN 3031 - Software Engineering Fundamentals.**
 
 ## Demonstration
