@@ -14,6 +14,7 @@ public class Database {
 
     public static HashMap<Integer, Animal> animals = new HashMap<Integer, Animal>();
     public static HashMap<Integer, Kennel> kennels = new HashMap<Integer, Kennel>();
+    public static Employee currentUser; // The user that is currently logged in.
 
     public static void saveNewPatient(Animal animal) {
         saveNewPatient(
@@ -69,7 +70,7 @@ public class Database {
                 rs.close();
                 pstmt.close();
                 connection.close();
-            }
+            } else throw new Exception("Could not establish connection.");
         } catch (Exception ex) {
             System.out.println("Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
@@ -82,14 +83,17 @@ public class Database {
     public static void updateKennel(Kennel kennel) {
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
-            PreparedStatement pstmt = connection.prepareStatement("UPDATE Kennels SET currentAnimal=? WHERE KennelID=?");
-            pstmt.setInt(1, (kennel.getCurrentAnimal() == null) ? -1 : kennel.getCurrentAnimal().getAnimalID());
-            pstmt.setInt(2, kennel.getKennelID());
-            pstmt.executeUpdate();
 
-            // Close connection
-            pstmt.close();
-            connection.close();
+            if (connection != null) {
+                PreparedStatement pstmt = connection.prepareStatement("UPDATE Kennels SET currentAnimal=? WHERE KennelID=?");
+                pstmt.setInt(1, (kennel.getCurrentAnimal() == null) ? -1 : kennel.getCurrentAnimal().getAnimalID());
+                pstmt.setInt(2, kennel.getKennelID());
+                pstmt.executeUpdate();
+
+                // Close connection
+                pstmt.close();
+                connection.close();
+            } else throw new Exception("Could not establish connection.");
         } catch (Exception ex) {
             System.out.println("Database Exception: Failed to updateKennel.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
@@ -145,7 +149,7 @@ public class Database {
                 resultSet.close();
                 statement.close();
                 connection.close();
-            }
+            } else throw new Exception("Could not establish connection.");
         } catch (Exception ex) {
             System.out.println("Database Exception: Failed to loadAll.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
@@ -158,19 +162,22 @@ public class Database {
 
             if (connection != null) {
                 Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE Username=\"%s\" AND Password=\"%s\"", user.toLowerCase(), encrypt(pass)));
+                ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE Username='%s' " +
+                        "AND Password='%s'", user.toLowerCase(), encrypt(pass)));
 
                 while (rs.next()) {
-                    // Close all connections.
-                    rs.close();
-                    statement.close();
-                    connection.close();
+                    // Found the user, so create the employee object
+                    currentUser = new Employee(rs.getInt("ID"), rs.getString("Username"),
+                            rs.getString("Name"), rs.getBoolean("Manager"));
+                    System.out.println(currentUser);
                     return true;
                 }
-            }
+            } else throw new Exception("Could not establish connection.");
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            System.out.println("Database Exception: Failed to tryLogin.\nReason: " + ex.toString() + "\n\n\n");
+            ex.printStackTrace();
         }
+        // If we reach this point, either the connection failed, or we didn't find the user.
         return false;
     }
 

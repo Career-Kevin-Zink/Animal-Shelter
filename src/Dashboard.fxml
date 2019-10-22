@@ -14,7 +14,7 @@
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="Application.DashboardController">
     <top>
-        <ButtonBar id="buttonBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <ButtonBar fx:id="buttonBar" id="buttonBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <buttons>
                 <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed" text="Kennel"/>
                 <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPressed"

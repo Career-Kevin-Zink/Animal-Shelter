@@ -3,7 +3,6 @@ package Application;
 import Database.Database;
 
 import java.io.IOException;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -13,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -32,11 +28,17 @@ public class DashboardController {
     @FXML
     private Button dashboardButton;
     @FXML
+    private ButtonBar buttonBar;
+    @FXML
     private TextField loginUsernameField;
     @FXML
     private PasswordField loginPasswordField;
     @FXML
     private Pane loginPane;
+
+    public void initialize() {
+        buttonBar.setVisible(false);
+    }
 
     // Patients Button Pressed
     public void patientsButtonPressed(ActionEvent event) throws IOException {
@@ -79,9 +81,22 @@ public class DashboardController {
             return;
         } else {
             if (Database.tryLogin(loginUsernameField.getText(), loginPasswordField.getText())) {
-                dashboardWelcomeLabel.setText(String.format("Welcome %s!", loginUsernameField.getText().toLowerCase()));
+                dashboardWelcomeLabel.setText(String.format("Welcome, %s!", Database.currentUser.getName()));
                 loginPane.setVisible(false);
+                buttonBar.setVisible(true);
                 dashboardWelcomeLabel.setVisible(true);
+                if (Database.currentUser.isManager()) {
+                    MenuButton btn = new MenuButton("Management");
+                    btn.setStyle("-fx-background-color: transparent;");
+                    btn.getItems().addAll(
+                            new MenuItem("Create New Employee"),
+                            new MenuItem("View All Employees"),
+                            new MenuItem("Create New Task"),
+                            new MenuItem("Assign Tasks")
+                    );
+                    buttonBar.getButtons().add(0, btn);
+                }
+
             } else {
                 doLoginErrorAnim();
             }
