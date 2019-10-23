@@ -37,7 +37,24 @@ public class DashboardController {
     private Pane loginPane;
 
     public void initialize() {
-        buttonBar.setVisible(false);
+        if(Database.currentUser == null)
+            buttonBar.setVisible(false);
+        else {
+            loginPane.setVisible(false);
+            dashboardWelcomeLabel.setText(String.format("Welcome, %s!", Database.currentUser.getName()));
+            dashboardWelcomeLabel.setVisible(true);
+            if (Database.currentUser.isManager()) {
+                MenuButton btn = new MenuButton("Management");
+                btn.setStyle("-fx-background-color: transparent;");
+                btn.getItems().addAll(
+                        new MenuItem("Create New Employee"),
+                        new MenuItem("View All Employees"),
+                        new MenuItem("Create New Task"),
+                        new MenuItem("Assign Tasks")
+                );
+                buttonBar.getButtons().add(0, btn);
+            }
+        }
     }
 
     // Patients Button Pressed
