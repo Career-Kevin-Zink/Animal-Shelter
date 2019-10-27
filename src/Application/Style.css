@@ -9,6 +9,15 @@ Dashboard.fxml
     -fx-background-color: #1181B2;
 }
 
+#managementButton {
+    -fx-background-color: #1181B2;
+    -fx-font-family: Lato;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ddedf4;
+    -fx-cursor: hand;
+}
+
 .button {
     -fx-background-color: #1181B2;
     -fx-font-family: Lato;
@@ -35,27 +44,28 @@ Dashboard.fxml
 /**
 Patients.fxml
  */
-#displayPatientsTableView,
-#displayPatientsTableView .table-row-cell {
+.table-view,
+.table-view .table-row-cell {
     -fx-background-color: transparent;
     -fx-table-cell-border-color: transparent;
 }
 
-#displayPatientsTableView .table-row-cell:selected {
+.table-view .table-row-cell:selected {
     -fx-background-color: #333333;
     -fx-table-cell-border-color: transparent;
 }
 
-#displayPatientsTableView .column-header,
-#displayPatientsTableView .column-header .label {
+.table-view .column-header,
+.table-view .column-header .label {
     -fx-background-color: #212221;
     -fx-text-fill: #ddedf4;
 }
 
-#displayPatientsTableView *.scroll-bar:horizontal *.increment-button,
-#displayPatientsTableView *.scroll-bar:horizontal *.decrement-button,
-#displayPatientsTableView *.scroll-bar:horizontal *.increment-arrow,
-#displayPatientsTableView *.scroll-bar:horizontal *.decrement-arrow {
+
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button,
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
     -fx-background-color: null;
     -fx-background-radius: 0;
     -fx-background-insets: 0;

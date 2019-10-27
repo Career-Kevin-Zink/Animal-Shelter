@@ -21,13 +21,13 @@ public class PatientsController {
     @FXML
     private TableView<Animal> displayPatientsTableView;
     @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button patientsButton;
-    @FXML
-    private Button addPatientButton;
+    private Button managementButton;
 
     public void initialize() {
+        // Hide the management button if the user is not a manager.
+        if (!Database.currentUser.isManager())
+            managementButton.setVisible(false);
+
         // Set up the animal display columns
         TableColumn<Animal, String> colID = new TableColumn<>("ID");
         colID.setCellValueFactory(new PropertyValueFactory<>("animalID"));
@@ -49,44 +49,47 @@ public class PatientsController {
         }
     }
 
-    // Return to Dashboard Button
-    public void dashboardButtonPushed(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
-        Scene dashboardScene = new Scene(dashboardParent);
+    @FXML
+    void managementButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Management.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(dashboardScene);
+
+        window.setScene(scene);
         window.show();
     }
 
-    // Return to Patients Button
-    public void patientsButtonPushed(ActionEvent event) throws IOException {
-        Parent patientsParent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
-        Scene patientsScene = new Scene(patientsParent);
+    @FXML
+    void dashboardButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(patientsScene);
+
+        window.setScene(scene);
         window.show();
     }
 
-    // Add Patient
-    public void addPatientButtonPushed(ActionEvent event) throws IOException {
-        Parent addPatientParent = FXMLLoader.load(getClass().getResource("/AddPatient.fxml"));
-        Scene addPatientScene = new Scene(addPatientParent);
+    @FXML
+    void kennelButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(addPatientScene);
+
+        window.setScene(scene);
         window.show();
     }
 
-    // Go to Kennel
-    public void kennelButtonPressed(ActionEvent event) throws IOException {
-        Parent kennelParent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
-        Scene kennelScene = new Scene(kennelParent);
+    @FXML
+    void patientsButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(kennelScene);
+        window.setScene(scene);
         window.show();
     }
 

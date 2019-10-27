@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class Database {
 
     public static HashMap<Integer, Animal> animals = new HashMap<Integer, Animal>();
+    public static HashMap<Integer, Employee> employees = new HashMap<Integer, Employee>();
     public static HashMap<Integer, Kennel> kennels = new HashMap<Integer, Kennel>();
     public static Employee currentUser; // The user that is currently logged in.
 
@@ -143,6 +144,15 @@ public class Database {
                         kennel = new Kennel(kennelID, animals.get(currentAnimal));
                     }
                     kennels.put(kennelID, kennel);
+                }
+
+                // Load employees and place them into the HashMap
+                resultSet = statement.executeQuery("SELECT * FROM users");
+                while (resultSet.next()) {
+                    Employee employee = new Employee(
+                            resultSet.getInt("ID"), resultSet.getString("Username"),
+                            resultSet.getString("Name"), resultSet.getBoolean("Manager"));
+                    employees.put(resultSet.getInt("ID"), employee);
                 }
 
                 // Close all connections.

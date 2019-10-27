@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #212221;" stylesheets="@Application/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.ManagementController">
+    <top>
+        <ButtonBar id="buttonBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <buttons>
+                <Button fx:id="managementButton" mnemonicParsing="false" onAction="#managementButtonPushed"
+                        text="Management"/>
+                <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPushed" text="Kennel" />
+                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed" text="Patients" />
+                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed" text="Dashboard" textAlignment="CENTER" />
+            </buttons>
+        </ButtonBar>
+    </top>
+    <center>
+        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <TableView fx:id="displayEmployeesTableView" prefHeight="187.0" prefWidth="600.0" />
+                    </children>
+                </Pane>
+                <Pane fx:id="newEmployeePane" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <VBox layoutX="119.0" layoutY="60.0" prefHeight="240.0" prefWidth="341.0">
+                            <children>
+                                <Label alignment="CENTER" prefHeight="36.0" prefWidth="341.0" text="Create New Employee" />
+                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                    <children>
+                                        <Label prefHeight="48.0" prefWidth="99.0" text="Employee Name:" />
+                                        <Pane prefHeight="48.0" prefWidth="244.0">
+                                            <children>
+                                                <TextField fx:id="newEmployeeNameField" layoutX="18.0" layoutY="12.0" prefHeight="25.0" prefWidth="199.0" />
+                                            </children>
+                                        </Pane>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                    <children>
+                                        <Label prefHeight="48.0" prefWidth="99.0" text="Username:" />
+                                        <Pane prefHeight="48.0" prefWidth="244.0">
+                                            <children>
+                                                <TextField fx:id="newEmployeeUsernameField" layoutX="18.0" layoutY="12.0" prefHeight="25.0" prefWidth="199.0" />
+                                            </children>
+                                        </Pane>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                    <children>
+                                        <Label prefHeight="48.0" prefWidth="99.0" text="Password:" />
+                                        <Pane prefHeight="48.0" prefWidth="244.0">
+                                            <children>
+                                                <TextField fx:id="newEmployeePasswordField" layoutX="18.0" layoutY="12.0" prefHeight="25.0" prefWidth="199.0" />
+                                            </children>
+                                        </Pane>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                    <children>
+                                        <Pane prefHeight="48.0" prefWidth="344.0">
+                                            <children>
+                                                <CheckBox fx:id="newEmployeeManagerCheckBox" layoutX="117.0" layoutY="16.0" mnemonicParsing="false" text="Is this user a Manager?" />
+                                            </children>
+                                        </Pane>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </Pane>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>

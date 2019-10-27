@@ -27,9 +27,7 @@ public class AddPatientController {
             "Neutral", "Aggressive");
 
     @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button patientsButton;
+    private Button managementButton;
     @FXML
     private Label newPatientNameLabel;
     @FXML
@@ -59,8 +57,6 @@ public class AddPatientController {
     @FXML
     private TextField newPatientMicrochip;
     @FXML
-    private Button savePatientButton;
-    @FXML
     private Label requiredFieldsAlertLabel;
     @FXML
     private ChoiceBox<String> newPatientTemperament;
@@ -69,8 +65,6 @@ public class AddPatientController {
     @FXML
     private RadioButton newPatientAdoptable;
     @FXML
-    private Label newPatientAdoptableLabel;
-    @FXML
     private Label newPatientTemperamentLabel;
     @FXML
     private Label newPatientWeightLabel;
@@ -78,38 +72,55 @@ public class AddPatientController {
     // Load String values into Sex ChoiceBox.
     @FXML
     private void initialize() throws Exception {
+        // Hide the management button if the user is not a manager.
+        if (!Database.currentUser.isManager())
+            managementButton.setVisible(false);
+
         newPatientSex.setItems(sexChoiceBox);
         newPatientTemperament.setItems(temperamentChoiceBox);
     }
 
-    // Return to Dashboard
-    public void dashboardButtonPushed(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
-        Scene dashboardScene = new Scene(dashboardParent);
+    @FXML
+    void managementButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Management.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(dashboardScene);
+
+        window.setScene(scene);
         window.show();
     }
 
-    // Return to Patients Scene
-    public void patientsButtonPushed(ActionEvent event) throws IOException {
-        Parent patientsParent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
-        Scene patientsScene = new Scene(patientsParent);
+    @FXML
+    void dashboardButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(patientsScene);
+
+        window.setScene(scene);
         window.show();
     }
 
-    // Go to Kennel
-    public void kennelButtonPressed(ActionEvent event) throws IOException {
-        Parent kennelParent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
-        Scene kennelScene = new Scene(kennelParent);
+    @FXML
+    void kennelButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(kennelScene);
+        window.setScene(scene);
+        window.show();
+    }
+
+    @FXML
+    void patientsButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
+        Scene scene = new Scene(parent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(scene);
         window.show();
     }
 

@@ -24,9 +24,7 @@ public class DashboardController {
     @FXML
     private Label loginFailLabel;
     @FXML
-    private Button patientsButton;
-    @FXML
-    private Button dashboardButton;
+    private Button managementButton;
     @FXML
     private ButtonBar buttonBar;
     @FXML
@@ -40,53 +38,56 @@ public class DashboardController {
         if(Database.currentUser == null)
             buttonBar.setVisible(false);
         else {
-            loginPane.setVisible(false);
             dashboardWelcomeLabel.setText(String.format("Welcome, %s!", Database.currentUser.getName()));
-            dashboardWelcomeLabel.setVisible(true);
-            if (Database.currentUser.isManager()) {
-                MenuButton btn = new MenuButton("Management");
-                btn.setStyle("-fx-background-color: transparent;");
-                btn.getItems().addAll(
-                        new MenuItem("Create New Employee"),
-                        new MenuItem("View All Employees"),
-                        new MenuItem("Create New Task"),
-                        new MenuItem("Assign Tasks")
-                );
-                buttonBar.getButtons().add(0, btn);
-            }
+            loginPane.setVisible(false);
+            buttonBar.setVisible(true);
+            // Hide the management button if the user is not a manager.
+            if (!Database.currentUser.isManager())
+                managementButton.setVisible(false);
         }
     }
 
-    // Patients Button Pressed
-    public void patientsButtonPressed(ActionEvent event) throws IOException {
-        Parent patientsParent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
-        Scene patientsScene = new Scene(patientsParent);
+    @FXML
+    void managementButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Management.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(patientsScene);
+        window.setScene(scene);
         window.show();
     }
 
-    // Return to dashboard
-    public void dashboardButtonPressed(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
-        Scene dashboardScene = new Scene(dashboardParent);
+    @FXML
+    void dashboardButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(dashboardScene);
+        window.setScene(scene);
         window.show();
     }
 
-    // Go to Kennel
-    public void kennelButtonPressed(ActionEvent event) throws IOException {
-        Parent kennelParent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
-        Scene kennelScene = new Scene(kennelParent);
+    @FXML
+    void kennelButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(kennelScene);
+        window.setScene(scene);
+        window.show();
+    }
+
+    @FXML
+    void patientsButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
+        Scene scene = new Scene(parent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(scene);
         window.show();
     }
 
@@ -101,19 +102,9 @@ public class DashboardController {
                 dashboardWelcomeLabel.setText(String.format("Welcome, %s!", Database.currentUser.getName()));
                 loginPane.setVisible(false);
                 buttonBar.setVisible(true);
-                dashboardWelcomeLabel.setVisible(true);
-                if (Database.currentUser.isManager()) {
-                    MenuButton btn = new MenuButton("Management");
-                    btn.setStyle("-fx-background-color: transparent;");
-                    btn.getItems().addAll(
-                            new MenuItem("Create New Employee"),
-                            new MenuItem("View All Employees"),
-                            new MenuItem("Create New Task"),
-                            new MenuItem("Assign Tasks")
-                    );
-                    buttonBar.getButtons().add(0, btn);
-                }
-
+                // Hide the management button if the user is not a manager.
+                if (!Database.currentUser.isManager())
+                    managementButton.setVisible(false);
             } else {
                 doLoginErrorAnim();
             }

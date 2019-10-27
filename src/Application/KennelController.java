@@ -20,6 +20,8 @@ import java.io.IOException;
 public class KennelController {
 
     @FXML
+    private Button managementButton;
+    @FXML
     private GridPane kennelGridPane;
     @FXML
     private Pane kennelviewPane;
@@ -42,18 +44,6 @@ public class KennelController {
     @FXML
     private VBox microChipVbox;
     @FXML
-    private GridPane kennelviewGridPane;
-    @FXML
-    private Button kennelViewer;
-    @FXML
-    private Button patientsButton;
-    @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button kennelButton;
-    @FXML
-    private Button escapeBtn;
-    @FXML
     private VBox arrivalVbox;
     @FXML
     private VBox tempermentVbox;
@@ -63,6 +53,10 @@ public class KennelController {
     private VBox colorVbox;
 
     public void initialize() {
+        // Hide the management button if the user is not a manager.
+        if (!Database.currentUser.isManager())
+            managementButton.setVisible(false);
+
         kennelviewPane.setStyle("-fx-background-color: #000000");
         kennelviewPane.setVisible(false);
         kennelGridPane.setHgap(10); //horizontal gap in pixels => that's what you are asking for
@@ -74,37 +68,47 @@ public class KennelController {
         }
     }
 
-
-    // Patients Button Pressed
-    public void patientsButtonPressed(ActionEvent event) throws IOException {
-        Parent patientsParent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
-        Scene patientsScene = new Scene(patientsParent);
+    @FXML
+    void managementButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Management.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(patientsScene);
+        window.setScene(scene);
         window.show();
     }
 
-    // Return to dashboard
-    public void dashboardButtonPressed(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
-        Scene dashboardScene = new Scene(dashboardParent);
+    @FXML
+    void dashboardButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(dashboardScene);
+        window.setScene(scene);
         window.show();
     }
 
-    // Go to Kennel
-    public void kennelButtonPressed(ActionEvent event) throws IOException {
-        Parent kennelParent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
-        Scene kennelScene = new Scene(kennelParent);
+    @FXML
+    void kennelButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
+        Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        window.setScene(kennelScene);
+        window.setScene(scene);
+        window.show();
+    }
+
+    @FXML
+    void patientsButtonPushed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
+        Scene scene = new Scene(parent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(scene);
         window.show();
     }
 

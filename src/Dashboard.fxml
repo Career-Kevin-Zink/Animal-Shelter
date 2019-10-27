@@ -16,10 +16,12 @@
     <top>
         <ButtonBar fx:id="buttonBar" id="buttonBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <buttons>
-                <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPressed" text="Kennel"/>
-                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPressed"
+                <Button fx:id="managementButton" mnemonicParsing="false" onAction="#managementButtonPushed"
+                        text="Management"/>
+                <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPushed" text="Kennel"/>
+                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed"
                         style="-fx-background-color: #1181B2;" text="Patients" textAlignment="CENTER"/>
-                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPressed"
+                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed"
                         text="Dashboard"/>
             </buttons>
         </ButtonBar>
