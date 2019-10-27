@@ -25,13 +25,25 @@ public class ManagementController {
     private Pane newEmployeePane;
 
     @FXML
+    private Pane managementPane;
+
+    @FXML
     private TextField newEmployeeNameField;
+
+    @FXML
+    private Label newEmployeeNameLabel;
 
     @FXML
     private TextField newEmployeeUsernameField;
 
     @FXML
+    private Label newEmployeeUsernameLabel;
+
+    @FXML
     private TextField newEmployeePasswordField;
+
+    @FXML
+    private Label newEmployeePasswordLabel;
 
     @FXML
     private CheckBox newEmployeeManagerCheckBox;
@@ -52,6 +64,41 @@ public class ManagementController {
 
     public void addEmployeeToDisplay(Employee employee) {
         displayEmployeesTableView.getItems().add(employee);
+    }
+
+    @FXML
+    void createNewUserButtonPushed(ActionEvent event) {
+        managementPane.setVisible(false);
+        newEmployeePane.setVisible(true);
+    }
+
+    @FXML
+    void saveNewUserButtonPushed(ActionEvent event) {
+        boolean allFilled = true;
+
+        if (newEmployeeNameField.getText().trim().isEmpty()) {
+            allFilled = false;
+            newEmployeeNameLabel.setStyle("-fx-text-fill: red;");
+        } else newEmployeeNameLabel.setStyle("-fx-text-fill: #ddedf4;");
+
+        if (newEmployeeUsernameField.getText().trim().isEmpty()) {
+            allFilled = false;
+            newEmployeeUsernameLabel.setStyle("-fx-text-fill: red;");
+        } else newEmployeeUsernameLabel.setStyle("-fx-text-fill: #ddedf4;");
+
+        if (newEmployeePasswordField.getText().trim().isEmpty()) {
+            allFilled = false;
+            newEmployeePasswordLabel.setStyle("-fx-text-fill: red;");
+        } else newEmployeePasswordLabel.setStyle("-fx-text-fill: #ddedf4;");
+
+        if (allFilled) {
+            Employee emp = new Employee(-1, newEmployeeUsernameField.getText(),
+                    newEmployeeNameField.getText(), newEmployeeManagerCheckBox.isSelected());
+            Database.saveNewEmployee(emp, newEmployeePasswordField.getText());
+            addEmployeeToDisplay(emp);
+            managementPane.setVisible(true);
+            newEmployeePane.setVisible(false);
+        }
     }
 
     @FXML

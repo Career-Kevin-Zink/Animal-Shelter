@@ -166,6 +166,47 @@ public class Database {
         }
     }
 
+    /**
+     * Method to save a newly created employee to the database.
+     *
+     * @param employee Employee object created by the "Create New User" FXML page.
+     * @param password String version of the password from the "Create New User" FXML page. It is encrypted when saved.
+     */
+    public static void saveNewEmployee(Employee employee, String password) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+
+            // Ensure the connection exists
+            if (connection != null) {
+                // Prepare the query statement.
+                PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Users " +
+                        "(Username, Password, Name, Manager) VALUES (?, ?, ?, ?)",
+                        PreparedStatement.RETURN_GENERATED_KEYS);
+                pstmt.setString(1, employee.getUsername());
+                pstmt.setString(2, encrypt(password));
+                pstmt.setString(3, employee.getName());
+                pstmt.setInt(4, employee.isManager() ? 1 : 0);
+
+                // Execute the query & catch generated key.
+                pstmt.executeUpdate();
+                ResultSet rs = pstmt.getGeneratedKeys();
+
+                while (rs.next()) {
+                    employee.setId(rs.getInt(1));
+                    employees.put(employee.getId(), employee);
+                }
+
+                // Close connection
+                rs.close();
+                pstmt.close();
+                connection.close();
+            } else throw new Exception("Could not establish connection.");
+        } catch (Exception ex) {
+            System.out.println("Database Exception: Failed to saveNewEmployee.\nReason: " + ex.toString() + "\n\n\n");
+            ex.printStackTrace();
+        }
+    }
+
     public static boolean tryLogin(String user, String pass) {
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
