@@ -4,7 +4,10 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,80 +15,173 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #212221;" stylesheets="@Application/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.ManagementController">
+<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #212221;"
+            stylesheets="@Application/Style.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.ManagementController">
     <top>
         <ButtonBar id="buttonBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <buttons>
-                <Button fx:id="managementButton" mnemonicParsing="false" onAction="#managementButtonPushed" text="Management" />
-                <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPushed" text="Kennel" />
-                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed" text="Patients" />
-                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed" text="Dashboard" textAlignment="CENTER" />
+                <Button fx:id="managementButton" mnemonicParsing="false" onAction="#managementButtonPushed"
+                        text="Management"/>
+                <Button fx:id="kennelButton" mnemonicParsing="false" onAction="#kennelButtonPushed" text="Kennel"/>
+                <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonPushed"
+                        text="Patients"/>
+                <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboardButtonPushed"
+                        text="Dashboard" textAlignment="CENTER"/>
             </buttons>
         </ButtonBar>
     </top>
     <center>
-        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-                <Pane fx:id="managementPane" prefHeight="200.0" prefWidth="200.0">
-                    <children>
-                        <TableView fx:id="displayEmployeesTableView" prefHeight="187.0" prefWidth="600.0" />
-                        <Button fx:id="createUserButton" layoutX="208.0" layoutY="165.0" mnemonicParsing="false" onAction="#createNewUserButtonPushed" text="Create New User" />
-                    </children>
-                </Pane>
-                <Pane fx:id="newEmployeePane" prefHeight="200.0" prefWidth="200.0">
-                    <children>
-                        <VBox layoutX="119.0" layoutY="60.0" prefHeight="240.0" prefWidth="341.0">
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="Employee Management">
+                    <content>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="36.0" prefWidth="341.0" text="Create New Employee" />
-                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                <Pane fx:id="viewEmployeesPane" prefHeight="200.0" prefWidth="200.0">
                                     <children>
-                                        <Label fx:id="newEmployeeNameLabel" prefHeight="48.0" prefWidth="99.0" text="Employee Name:" />
-                                        <Pane prefHeight="48.0" prefWidth="244.0">
-                                            <children>
-                                                <TextField fx:id="newEmployeeNameField" layoutX="18.0" layoutY="12.0" prefHeight="25.0" prefWidth="199.0" />
-                                            </children>
-                                        </Pane>
+                                        <TableView fx:id="displayEmployeesTableView" prefHeight="187.0"
+                                                   prefWidth="600.0"/>
+                                        <Button fx:id="createUserButton" layoutX="208.0" layoutY="187.0"
+                                                mnemonicParsing="false" onAction="#createNewUserButtonPushed"
+                                                text="Create New User"/>
                                     </children>
-                                </HBox>
-                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                </Pane>
+                                <Pane fx:id="newEmployeePane" prefHeight="200.0" prefWidth="200.0">
                                     <children>
-                                        <Label fx:id="newEmployeeUsernameLabel" prefHeight="48.0" prefWidth="99.0" text="Username:" />
-                                        <Pane prefHeight="48.0" prefWidth="244.0">
+                                        <VBox layoutX="119.0" layoutY="30.0" prefHeight="258.0" prefWidth="341.0">
                                             <children>
-                                                <TextField fx:id="newEmployeeUsernameField" layoutX="18.0" layoutY="12.0" prefHeight="25.0" prefWidth="199.0" />
+                                                <Label alignment="CENTER" prefHeight="36.0" prefWidth="341.0"
+                                                       text="Create New Employee"/>
+                                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                                    <children>
+                                                        <Label fx:id="newEmployeeNameLabel" prefHeight="48.0"
+                                                               prefWidth="99.0" text="Employee Name:"/>
+                                                        <Pane prefHeight="48.0" prefWidth="244.0">
+                                                            <children>
+                                                                <TextField fx:id="newEmployeeNameField" layoutX="18.0"
+                                                                           layoutY="12.0" prefHeight="25.0"
+                                                                           prefWidth="199.0"/>
+                                                            </children>
+                                                        </Pane>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                                    <children>
+                                                        <Label fx:id="newEmployeeUsernameLabel" prefHeight="48.0"
+                                                               prefWidth="99.0" text="Username:"/>
+                                                        <Pane prefHeight="48.0" prefWidth="244.0">
+                                                            <children>
+                                                                <TextField fx:id="newEmployeeUsernameField"
+                                                                           layoutX="18.0" layoutY="12.0"
+                                                                           prefHeight="25.0" prefWidth="199.0"/>
+                                                            </children>
+                                                        </Pane>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                                    <children>
+                                                        <Label fx:id="newEmployeePasswordLabel" prefHeight="48.0"
+                                                               prefWidth="99.0" text="Password:"/>
+                                                        <Pane prefHeight="48.0" prefWidth="244.0">
+                                                            <children>
+                                                                <TextField fx:id="newEmployeePasswordField"
+                                                                           layoutX="18.0" layoutY="12.0"
+                                                                           prefHeight="25.0" prefWidth="199.0"/>
+                                                            </children>
+                                                        </Pane>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                                    <children>
+                                                        <Pane prefHeight="48.0" prefWidth="344.0">
+                                                            <children>
+                                                                <CheckBox fx:id="newEmployeeManagerCheckBox"
+                                                                          layoutX="117.0" layoutY="16.0"
+                                                                          mnemonicParsing="false"
+                                                                          text="Is this user a Manager?"/>
+                                                            </children>
+                                                        </Pane>
+                                                    </children>
+                                                </HBox>
+                                                <Pane prefHeight="48.0" prefWidth="341.0">
+                                                    <children>
+                                                        <Button fx:id="saveNewUserButton" layoutX="87.0" layoutY="-1.0"
+                                                                mnemonicParsing="false"
+                                                                onAction="#saveNewUserButtonPushed"
+                                                                text="Save New User"/>
+                                                    </children>
+                                                </Pane>
                                             </children>
-                                        </Pane>
+                                        </VBox>
                                     </children>
-                                </HBox>
-                                <HBox prefHeight="48.0" prefWidth="341.0">
-                                    <children>
-                                        <Label fx:id="newEmployeePasswordLabel" prefHeight="48.0" prefWidth="99.0" text="Password:" />
-                                        <Pane prefHeight="48.0" prefWidth="244.0">
-                                            <children>
-                                                <TextField fx:id="newEmployeePasswordField" layoutX="18.0" layoutY="12.0" prefHeight="25.0" prefWidth="199.0" />
-                                            </children>
-                                        </Pane>
-                                    </children>
-                                </HBox>
-                                <HBox prefHeight="48.0" prefWidth="341.0">
-                                    <children>
-                                        <Pane prefHeight="48.0" prefWidth="344.0">
-                                            <children>
-                                                <CheckBox fx:id="newEmployeeManagerCheckBox" layoutX="117.0" layoutY="16.0" mnemonicParsing="false" text="Is this user a Manager?" />
-                                            </children>
-                                        </Pane>
-                                    </children>
-                                </HBox>
-                        <Pane prefHeight="48.0" prefWidth="341.0">
-                           <children>
-                              <Button fx:id="saveNewUserButton" layoutX="87.0" layoutY="-1.0" mnemonicParsing="false" onAction="#saveNewUserButtonPushed" text="Save New User" />
-                           </children>
-                        </Pane>
+                                </Pane>
                             </children>
-                        </VBox>
-                    </children>
-                </Pane>
-            </children>
-        </StackPane>
+                        </StackPane>
+                    </content>
+                </Tab>
+                <Tab text="Task Management">
+                    <content>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                            <children>
+                                <Pane fx:id="viewTasksPane" prefHeight="200.0" prefWidth="600.0">
+                                    <children>
+                                        <TableView fx:id="displayTasksTableView" prefHeight="187.0" prefWidth="600.0"/>
+                                        <Button fx:id="createNewTaskButton" layoutX="208.0" layoutY="187.0"
+                                                mnemonicParsing="false" onAction="#createNewTaskButtonPushed"
+                                                text="Create New Task"/>
+                                    </children>
+                                </Pane>
+                                <Pane fx:id="newTaskPane" prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <VBox layoutX="119.0" layoutY="30.0" prefHeight="258.0" prefWidth="341.0">
+                                            <children>
+                                                <Label alignment="CENTER" prefHeight="36.0" prefWidth="341.0"
+                                                       text="Create New Task"/>
+                                                <HBox prefHeight="48.0" prefWidth="341.0">
+                                                    <children>
+                                                        <Label fx:id="newTaskNameLabel" prefHeight="48.0"
+                                                               prefWidth="99.0" text="Task Name:"/>
+                                                        <Pane prefHeight="48.0" prefWidth="244.0">
+                                                            <children>
+                                                                <TextField fx:id="newTaskNameTextField" layoutX="10.0"
+                                                                           layoutY="12.0" prefHeight="25.0"
+                                                                           prefWidth="226.0"/>
+                                                            </children>
+                                                        </Pane>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="181.0" prefWidth="341.0">
+                                                    <children>
+                                                        <Label fx:id="newTaskDescriptionLabel" prefHeight="48.0"
+                                                               prefWidth="99.0" text="Task Description:"/>
+                                                        <Pane prefHeight="173.0" prefWidth="239.0">
+                                                            <children>
+                                                                <TextArea fx:id="newTaskDescriptionTextArea"
+                                                                          layoutX="10.0" layoutY="6.0"
+                                                                          prefHeight="143.0" prefWidth="226.0"/>
+                                                            </children>
+                                                        </Pane>
+                                                    </children>
+                                                </HBox>
+                                                <Pane prefHeight="27.0" prefWidth="341.0">
+                                                    <children>
+                                                        <Button fx:id="saveNewTaskButton" layoutX="87.0" layoutY="-1.0"
+                                                                mnemonicParsing="false"
+                                                                onAction="#saveNewTaskButtonPushed"
+                                                                text="Save New Task"/>
+                                                    </children>
+                                                </Pane>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </Pane>
+                            </children>
+                        </StackPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
     </center>
 </BorderPane>

@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -22,16 +23,37 @@ public class ManagementController {
     private TableView<Employee> displayEmployeesTableView;
 
     @FXML
+    private TableView<TaskManager.Task> displayTasksTableView;
+
+    @FXML
     private Pane newEmployeePane;
 
     @FXML
-    private Pane managementPane;
+    private Pane viewEmployeesPane;
+
+    @FXML
+    private Pane newTaskPane;
+
+    @FXML
+    private Pane viewTasksPane;
 
     @FXML
     private TextField newEmployeeNameField;
 
     @FXML
     private Label newEmployeeNameLabel;
+
+    @FXML
+    private Label newTaskNameLabel;
+
+    @FXML
+    private TextField newTaskNameTextField;
+
+    @FXML
+    private Label newTaskDescriptionLabel;
+
+    @FXML
+    private TextArea newTaskDescriptionTextArea;
 
     @FXML
     private TextField newEmployeeUsernameField;
@@ -55,20 +77,36 @@ public class ManagementController {
             dashboardButtonPushed(new ActionEvent());
 
         newEmployeePane.setVisible(false);
-        setupEmployeeDisplay();
+        newTaskPane.setVisible(false);
+        prepareEmployeeDisplay();
+        prepareTaskDisplay();
+
+        // These make it so when you hit escape, it cancels creating a new task or user.
+        newTaskPane.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                newTaskPane.setVisible(false);
+                displayTasksTableView.setVisible(true);
+            }
+        });
+        newEmployeePane.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                newEmployeePane.setVisible(false);
+                displayEmployeesTableView.setVisible(true);
+            }
+        });
 
         for (Employee emp : Database.employees.values()) {
-            addEmployeeToDisplay(emp);
+            displayEmployeesTableView.getItems().add(emp);
         }
-    }
 
-    public void addEmployeeToDisplay(Employee employee) {
-        displayEmployeesTableView.getItems().add(employee);
+        for (TaskManager.Task task : TaskManager.getTasks()) {
+            displayTasksTableView.getItems().add(task);
+        }
     }
 
     @FXML
     void createNewUserButtonPushed(ActionEvent event) {
-        managementPane.setVisible(false);
+        viewEmployeesPane.setVisible(false);
         newEmployeePane.setVisible(true);
     }
 
@@ -95,10 +133,38 @@ public class ManagementController {
             Employee emp = new Employee(-1, newEmployeeUsernameField.getText(),
                     newEmployeeNameField.getText(), newEmployeeManagerCheckBox.isSelected());
             Database.saveNewEmployee(emp, newEmployeePasswordField.getText());
-            addEmployeeToDisplay(emp);
-            managementPane.setVisible(true);
+            displayEmployeesTableView.getItems().add(emp);
+            viewEmployeesPane.setVisible(true);
             newEmployeePane.setVisible(false);
         }
+    }
+
+    @FXML
+    void saveNewTaskButtonPushed(ActionEvent event) {
+        boolean allFilled = true;
+
+        if (newTaskNameTextField.getText().trim().isEmpty()) {
+            allFilled = false;
+            newTaskNameLabel.setStyle("-fx-text-fill: red;");
+        } else newTaskNameLabel.setStyle("-fx-text-fill: #ddedf4;");
+
+        if (newTaskDescriptionTextArea.getText().trim().isEmpty()) {
+            allFilled = false;
+            newTaskDescriptionLabel.setStyle("-fx-text-fill: red;");
+        } else newTaskDescriptionLabel.setStyle("-fx-text-fill: #ddedf4;");
+
+        if (allFilled) {
+            displayTasksTableView.getItems().add(
+                    TaskManager.createTask(newTaskNameTextField.getText(), newTaskDescriptionTextArea.getText()));
+            viewTasksPane.setVisible(true);
+            newTaskPane.setVisible(false);
+        }
+    }
+
+    @FXML
+    public void createNewTaskButtonPushed(ActionEvent event) {
+        viewTasksPane.setVisible(false);
+        newTaskPane.setVisible(true);
     }
 
     @FXML
@@ -145,7 +211,8 @@ public class ManagementController {
         window.show();
     }
 
-    private void setupEmployeeDisplay() {
+    private void prepareEmployeeDisplay() {
+        // Employee TableView
         TableColumn<Employee, String> colID = new TableColumn<>("ID");
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colID.setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center; -fx-pref-width: 150.0");
@@ -184,5 +251,29 @@ public class ManagementController {
         colManager.setSortable(false);
 
         displayEmployeesTableView.getColumns().addAll(colID, colName, colUName, colManager);
+    }
+
+    private void prepareTaskDisplay() {
+        // Tasks TableView
+        TableColumn<TaskManager.Task, Integer> colID = new TableColumn<>("ID");
+        colID.setCellValueFactory(new PropertyValueFactory<>("taskID"));
+        colID.setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center; -fx-pref-width: 50.0");
+        colID.setSortable(false);
+        colID.setEditable(false);
+
+        TableColumn<TaskManager.Task, String> colName = new TableColumn<>("Task Name");
+        colName.setCellValueFactory(new PropertyValueFactory<>("taskName"));
+        colName.setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center; -fx-pref-width: 100.0");
+        colName.setSortable(false);
+        colName.setEditable(false);
+
+        TableColumn<TaskManager.Task, String> colDesc = new TableColumn<>("Task Description");
+        colDesc.setCellValueFactory(new PropertyValueFactory<>("taskDescription"));
+        colDesc.setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center; -fx-pref-width: 450.0");
+        colDesc.setSortable(false);
+        colDesc.setEditable(false);
+
+        //displayTasksTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        displayTasksTableView.getColumns().addAll(colID, colName, colDesc);
     }
 }

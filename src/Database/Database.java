@@ -2,6 +2,7 @@ package Database;
 
 import Application.Animal;
 import Application.Kennel;
+import Application.TaskManager;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -155,6 +156,15 @@ public class Database {
                     employees.put(resultSet.getInt("ID"), employee);
                 }
 
+                // Load tasks and place them into the TaskManager
+                resultSet = statement.executeQuery("SELECT * FROM Tasks");
+                while (resultSet.next()) {
+                    TaskManager.existingTasks.put(resultSet.getInt(1),
+                            new TaskManager.Task(resultSet.getInt(1),
+                                    resultSet.getString(2),
+                                    resultSet.getString(3)));
+                }
+
                 // Close all connections.
                 resultSet.close();
                 statement.close();
@@ -164,6 +174,33 @@ public class Database {
             System.out.println("Database Exception: Failed to loadAll.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
+    }
+
+    public static int saveNewTask(TaskManager.Task task) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+
+            // Ensure the connection exists
+            if (connection != null) {
+
+                PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Tasks " +
+                        "(TaskName, TaskDescription) VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                pstmt.setString(1, task.getTaskName());
+                pstmt.setString(2, task.getTaskDescription());
+
+                // Execute the query & catch generated key.
+                pstmt.executeUpdate();
+                ResultSet rs = pstmt.getGeneratedKeys();
+
+                while (rs.next()) {
+                    return rs.getInt(1);
+                }
+            } else throw new Exception("Could not establish connection.");
+        } catch (Exception ex) {
+            System.out.println("Database Exception: Failed to saveNewEmployee.\nReason: " + ex.toString() + "\n\n\n");
+            ex.printStackTrace();
+        }
+        return -1;
     }
 
     /**
@@ -180,7 +217,7 @@ public class Database {
             if (connection != null) {
                 // Prepare the query statement.
                 PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Users " +
-                        "(Username, Password, Name, Manager) VALUES (?, ?, ?, ?)",
+                                "(Username, Password, Name, Manager) VALUES (?, ?, ?, ?)",
                         PreparedStatement.RETURN_GENERATED_KEYS);
                 pstmt.setString(1, employee.getUsername());
                 pstmt.setString(2, encrypt(password));
