@@ -93,6 +93,16 @@ public class PatientsController {
         window.show();
     }
 
+    // Add Patient
+    public void addPatientButtonPushed(ActionEvent event) throws IOException {
+        Parent addPatientParent = FXMLLoader.load(getClass().getResource("/AddPatient.fxml"));
+        Scene addPatientScene = new Scene(addPatientParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(addPatientScene);
+        window.show();
+    }
+
     // Add Animal to display list
     public void addAnimalToDisplay(Animal animal) {
         displayPatientsTableView.getItems().add(animal);
