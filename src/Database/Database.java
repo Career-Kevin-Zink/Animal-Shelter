@@ -2,6 +2,7 @@ package Database;
 
 import Application.Animal;
 import Application.Kennel;
+import Application.ManagementController;
 import Application.TaskManager;
 
 import java.math.BigInteger;
@@ -198,6 +199,34 @@ public class Database {
             } else throw new Exception("Could not establish connection.");
         } catch (Exception ex) {
             System.out.println("Database Exception: Failed to saveNewEmployee.\nReason: " + ex.toString() + "\n\n\n");
+            ex.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static int saveNewAssignedTask(TaskManager.Task task, Animal ani, Employee emp, Kennel ken) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+
+            // Ensure the connection exists
+            if (connection != null) {
+
+                PreparedStatement pstmt = connection.prepareStatement("INSERT INTO AssignedTasks " +
+                        "(TaskId, AnimalID, EmployeeID, KennelID) VALUES (?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                pstmt.setInt(1, (task == null) ? -1 : task.getTaskID());
+                pstmt.setInt(2, (ani == null) ? -1 : ani.getAnimalID());
+                pstmt.setInt(3, (emp == null) ? -1 : emp.getId());
+                pstmt.setInt(4, (ken == null) ? -1 : ken.getKennelID());
+                // Execute the query & catch generated key.
+                pstmt.executeUpdate();
+                ResultSet rs = pstmt.getGeneratedKeys();
+
+                while (rs.next()) {
+                    return rs.getInt(1);
+                }
+            } else throw new Exception("Could not establish connection.");
+        } catch (Exception ex) {
+            System.out.println("Database Exception: Failed to saveAssignedTask.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
         return -1;

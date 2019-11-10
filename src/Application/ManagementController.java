@@ -70,6 +70,27 @@ public class ManagementController {
     @FXML
     private CheckBox newEmployeeManagerCheckBox;
 
+    @FXML
+    private Pane assignTaskPane;
+
+    @FXML
+    private ChoiceBox<TaskManager.Task> assignTask;
+
+    @FXML
+    private ChoiceBox<Employee> assignEmployee;
+
+    @FXML
+    private ChoiceBox<Kennel> assignKennel;
+
+    @FXML
+    private ChoiceBox<Animal> assignAnimal;
+
+    @FXML
+    private Button assignTaskBtnConfirm;
+
+    @FXML
+    private Button assignTaskBtn;
+
     public void initialize() throws IOException {
 
         // If for some reason a non manager accessed this page, throw them back to the dashboard.
@@ -78,30 +99,48 @@ public class ManagementController {
 
         newEmployeePane.setVisible(false);
         newTaskPane.setVisible(false);
+        assignTaskPane.setVisible(false);
         prepareEmployeeDisplay();
         prepareTaskDisplay();
 
-        // These make it so when you hit escape, it cancels creating a new task or user.
-        newTaskPane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                newTaskPane.setVisible(false);
-                displayTasksTableView.setVisible(true);
-            }
-        });
-        newEmployeePane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                newEmployeePane.setVisible(false);
-                displayEmployeesTableView.setVisible(true);
-            }
-        });
+
+
+        //todo Mark it as broken - doesn't reload the tableview I'll fix it later
+
+//        // These make it so when you hit escape, it cancels creating a new task or user.
+//        newTaskPane.setOnKeyPressed(event -> {
+//            if (event.getCode() == KeyCode.ESCAPE) {
+//                newTaskPane.setVisible(false);
+//                displayTasksTableView.setVisible(true);
+//            }
+//        });
+//        newEmployeePane.setOnKeyPressed(event -> {
+//            if (event.getCode() == KeyCode.ESCAPE) {
+//                newEmployeePane.setVisible(false);
+//                displayEmployeesTableView.setVisible(true);
+//            }
+//        });
 
         for (Employee emp : Database.employees.values()) {
             displayEmployeesTableView.getItems().add(emp);
         }
-
         for (TaskManager.Task task : TaskManager.getTasks()) {
             displayTasksTableView.getItems().add(task);
         }
+
+        for (Employee emp : Database.employees.values()) {
+            assignEmployee.getItems().add(emp);
+        }
+        for (Animal ani : Database.animals.values()) {
+            assignAnimal.getItems().add(ani);
+        }
+        for (Kennel ken : Database.kennels.values()) {
+            assignKennel.getItems().add(ken);
+        }
+        for (TaskManager.Task task : TaskManager.getTasks()) {
+            assignTask.getItems().add(task);
+        }
+
     }
 
     @FXML
@@ -166,6 +205,20 @@ public class ManagementController {
         viewTasksPane.setVisible(false);
         newTaskPane.setVisible(true);
     }
+    @FXML
+    public void assignTaskButtonPushed(ActionEvent actionEvent) {
+        viewTasksPane.setVisible(false);
+        assignTaskPane.setVisible(true);
+    }
+    @FXML
+    void setAssignTaskBtnConfirm(ActionEvent event) {
+        Database.saveNewAssignedTask(assignTask.getValue(), assignAnimal.getValue(),assignEmployee.getValue(),
+                assignKennel.getValue());
+        assignTaskPane.setVisible(false);
+        viewTasksPane.setVisible(true);
+
+
+    }
 
     @FXML
     void managementButtonPushed(ActionEvent event) throws IOException {
@@ -210,6 +263,7 @@ public class ManagementController {
         window.setScene(scene);
         window.show();
     }
+
 
     private void prepareEmployeeDisplay() {
         // Employee TableView
@@ -273,7 +327,16 @@ public class ManagementController {
         colDesc.setSortable(false);
         colDesc.setEditable(false);
 
+//        TableColumn<TaskManager.Task, String> colAssigned = new TableColumn<>("Assigned tasks.");
+//        colDesc.setCellValueFactory(new PropertyValueFactory<>("assignments"));
+//        colDesc.setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center; -fx-pref-width: 100.0");
+//        colDesc.setSortable(false);
+//        colDesc.setEditable(false);
+
+
         //displayTasksTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         displayTasksTableView.getColumns().addAll(colID, colName, colDesc);
     }
+
+
 }
