@@ -1,6 +1,6 @@
 package Application;
 
-import Database.Database;
+import Database.*;
 import java.util.HashMap;
 
 public class TaskManager {
@@ -36,6 +36,35 @@ public class TaskManager {
 
         public String getTaskDescription() {
             return taskDescription;
+        }
+    }
+
+    public static class AssignedTask {
+
+        public Task assignedTask;
+        public Employee assignedToEmployee;
+        public Kennel assignedToKennel;
+        public Animal assignedToAnimal;
+
+        public AssignedTask(Task assignedTask, Employee assignedToEmployee) {
+            this.assignedTask = assignedTask;
+            this.assignedToEmployee = assignedToEmployee;
+            this.assignedToKennel = null;
+            this.assignedToAnimal = null;
+        }
+
+        public AssignedTask(Task assignedTask, Kennel assignedToKennel) {
+            this.assignedTask = assignedTask;
+            this.assignedToKennel = assignedToKennel;
+            this.assignedToEmployee = null;
+            this.assignedToAnimal = null;
+        }
+
+        public AssignedTask(Task assignedTask, Animal assignedToAnimal) {
+            this.assignedTask = assignedTask;
+            this.assignedToAnimal = assignedToAnimal;
+            this.assignedToEmployee = null;
+            this.assignedToKennel = null;
         }
     }
 
