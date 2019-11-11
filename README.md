@@ -9,7 +9,9 @@
  **Coming soon ... We will either upload a gif or video of the program in use when it is closer to being completed.**
 
 ## Documentation
- **Coming soon...**
+**Testing login information:**
+- Manager account: Username: Manager | Password: Manager
+- Employee account: Username: Employee | Password: Employee
 
 ## Diagrams
 **Class Diagram**
