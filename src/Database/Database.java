@@ -20,22 +20,22 @@ public class Database {
 
     public static void saveNewPatient(Animal animal) {
         saveNewPatient(
-                animal.getName(),
-                animal.getSpecies(),
-                animal.getTemperment(),
-                animal.getSex(),
-                animal.getColor(),
-                animal.getBreed(),
-                animal.getMicrochip(),
-                animal.getAge(),
-                animal.getWeight(),
-                animal.getArrivalDate(),
-                animal.getAdoptable());
+            animal.getName(),
+            animal.getSpecies(),
+            animal.getTemperment(),
+            animal.getSex(),
+            animal.getColor(),
+            animal.getBreed(),
+            animal.getMicrochip(),
+            animal.getAge(),
+            animal.getWeight(),
+            animal.getArrivalDate(),
+            animal.getAdoptable());
     }
 
     public static void saveNewPatient(String name, String species, String temperment, String sex,
-                                      String color, String breed, String microchip, String age,
-                                      String weight, String arrivalDate, String adoptable) {
+        String color, String breed, String microchip, String age,
+        String weight, String arrivalDate, String adoptable) {
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
 
@@ -43,8 +43,9 @@ public class Database {
             if (connection != null) {
                 // Prepare the query statement.
                 PreparedStatement pstmt = connection.prepareStatement("INSERT INTO animals " +
-                        "(Name,MainSpecies,Temperment,Sex,Color,Breed,Microchip,Age,Weight,ArrivalDate,Adoptable) " +
-                        "VALUES (?,?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    "(Name,MainSpecies,Temperment,Sex,Color,Breed,Microchip,Age,Weight,ArrivalDate,Adoptable) "
+                    +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
                 pstmt.setString(1, name);
                 pstmt.setString(2, species);
                 pstmt.setString(3, temperment);
@@ -55,7 +56,8 @@ public class Database {
                 pstmt.setString(8, age);
                 pstmt.setString(9, weight);
                 pstmt.setString(10,
-                        (arrivalDate == null ? java.util.Calendar.getInstance().getTime().toString() : arrivalDate));
+                    (arrivalDate == null ? java.util.Calendar.getInstance().getTime().toString()
+                        : arrivalDate));
                 pstmt.setString(11, adoptable);
 
                 // Execute the query & catch generated key.
@@ -65,16 +67,93 @@ public class Database {
                 // Create an animal object using the generated key & store it in our hashmap.
                 while (rs.next()) {
                     animals.put(rs.getInt(1), new Animal(name, species, temperment, sex, color, breed,
-                            microchip, age, weight, arrivalDate, adoptable, rs.getInt(1)));
+                        microchip, age, weight, arrivalDate, adoptable, rs.getInt(1)));
                 }
 
                 // Close connection
                 rs.close();
                 pstmt.close();
                 connection.close();
-            } else throw new Exception("Could not establish connection.");
+            } else {
+                throw new Exception("Could not establish connection.");
+            }
         } catch (Exception ex) {
-            System.out.println("Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
+            System.out.println(
+                "Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
+            ex.printStackTrace();
+        }
+    }
+
+    public void removePatient(int animalID, String animalName) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+
+            // Ensure the connection exists
+            if (connection != null) {
+                // Prepare the query statement.
+                PreparedStatement pstmt = connection.prepareStatement("DELETE FROM animals " +
+                    "WHERE CollarID = ? ", PreparedStatement.RETURN_GENERATED_KEYS);
+
+                pstmt.setInt(1, animalID);
+
+                // Execute the query & catch generated key.
+                pstmt.executeUpdate();
+                System.out.println(animalName + " was removed from database.");
+                ResultSet rs = pstmt.getGeneratedKeys();
+
+                // Close connection
+                rs.close();
+                pstmt.close();
+                connection.close();
+            } else {
+                throw new Exception("Could not establish connection.");
+            }
+        } catch (Exception ex) {
+            System.out.println(
+                "Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
+            ex.printStackTrace();
+        }
+    }
+
+    public static void updatePatient(int animalID) {
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+
+            // Ensure the connection exists
+            if (connection != null) {
+                // Prepare the query statement.
+                PreparedStatement pstmt = connection.prepareStatement(
+                    "UPDATE Animals SET Name=?, MainSpecies=?, Sex=?, Color=?, Breed=?, Age=?, Microchip=?, Weight=?, Temperment=?, Adoptable=? WHERE CollarID=?",
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+
+                pstmt.setString(1, animals.get(animalID).getName());
+                pstmt.setString(2, animals.get(animalID).getSpecies());
+                pstmt.setString(3, animals.get(animalID).getSex());
+                pstmt.setString(4, animals.get(animalID).getColor());
+                pstmt.setString(5, animals.get(animalID).getBreed());
+                pstmt.setString(6, animals.get(animalID).getAge());
+                pstmt.setString(7, animals.get(animalID).getMicrochip());
+                pstmt.setString(8, animals.get(animalID).getWeight());
+                pstmt.setString(9, animals.get(animalID).getTemperment());
+                pstmt.setString(10, animals.get(animalID).getAdoptable());
+                pstmt.setInt(11, animals.get(animalID).getAnimalID());
+
+                // Execute the query & catch generated key.
+                pstmt.executeUpdate();
+                ResultSet rs = pstmt.getGeneratedKeys();
+
+                // Close connection
+                rs.close();
+                pstmt.close();
+                connection.close();
+
+            } else {
+                throw new Exception("Could not establish connection.");
+            }
+        } catch (Exception ex) {
+            System.out.println(
+                "Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
     }
@@ -87,17 +166,22 @@ public class Database {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
 
             if (connection != null) {
-                PreparedStatement pstmt = connection.prepareStatement("UPDATE Kennels SET currentAnimal=? WHERE KennelID=?");
-                pstmt.setInt(1, (kennel.getCurrentAnimal() == null) ? -1 : kennel.getCurrentAnimal().getAnimalID());
+                PreparedStatement pstmt = connection
+                    .prepareStatement("UPDATE Kennels SET currentAnimal=? WHERE KennelID=?");
+                pstmt.setInt(1,
+                    (kennel.getCurrentAnimal() == null) ? -1 : kennel.getCurrentAnimal().getAnimalID());
                 pstmt.setInt(2, kennel.getKennelID());
                 pstmt.executeUpdate();
 
                 // Close connection
                 pstmt.close();
                 connection.close();
-            } else throw new Exception("Could not establish connection.");
+            } else {
+                throw new Exception("Could not establish connection.");
+            }
         } catch (Exception ex) {
-            System.out.println("Database Exception: Failed to updateKennel.\nReason: " + ex.toString() + "\n\n\n");
+            System.out.println(
+                "Database Exception: Failed to updateKennel.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
     }
@@ -116,18 +200,18 @@ public class Database {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM animals");
                 while (resultSet.next()) {
                     animals.put(resultSet.getInt("CollarID"), new Animal(
-                            resultSet.getString("Name"),
-                            resultSet.getString("MainSpecies"),
-                            resultSet.getString("Temperment"),
-                            resultSet.getString("Sex"),
-                            resultSet.getString("Color"),
-                            resultSet.getString("Breed"),
-                            resultSet.getString("Microchip"),
-                            resultSet.getString("Age"),
-                            resultSet.getString("Weight"),
-                            resultSet.getString("ArrivalDate"),
-                            resultSet.getString("Adoptable"),
-                            resultSet.getInt("CollarID")));
+                        resultSet.getString("Name"),
+                        resultSet.getString("MainSpecies"),
+                        resultSet.getString("Temperment"),
+                        resultSet.getString("Sex"),
+                        resultSet.getString("Color"),
+                        resultSet.getString("Breed"),
+                        resultSet.getString("Microchip"),
+                        resultSet.getString("Age"),
+                        resultSet.getString("Weight"),
+                        resultSet.getString("ArrivalDate"),
+                        resultSet.getString("Adoptable"),
+                        resultSet.getInt("CollarID")));
                 }
 
                 // Load kennels and place them into the HashMap
@@ -151,8 +235,8 @@ public class Database {
                 resultSet = statement.executeQuery("SELECT * FROM users");
                 while (resultSet.next()) {
                     Employee employee = new Employee(
-                            resultSet.getInt("ID"), resultSet.getString("Username"),
-                            resultSet.getString("Name"), resultSet.getBoolean("Manager"));
+                        resultSet.getInt("ID"), resultSet.getString("Username"),
+                        resultSet.getString("Name"), resultSet.getBoolean("Manager"));
                     employees.put(resultSet.getInt("ID"), employee);
                 }
 
@@ -160,18 +244,21 @@ public class Database {
                 resultSet = statement.executeQuery("SELECT * FROM Tasks");
                 while (resultSet.next()) {
                     TaskManager.existingTasks.put(resultSet.getInt(1),
-                            new TaskManager.Task(resultSet.getInt(1),
-                                    resultSet.getString(2),
-                                    resultSet.getString(3)));
+                        new TaskManager.Task(resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3)));
                 }
 
                 // Close all connections.
                 resultSet.close();
                 statement.close();
                 connection.close();
-            } else throw new Exception("Could not establish connection.");
+            } else {
+                throw new Exception("Could not establish connection.");
+            }
         } catch (Exception ex) {
-            System.out.println("Database Exception: Failed to loadAll.\nReason: " + ex.toString() + "\n\n\n");
+            System.out
+                .println("Database Exception: Failed to loadAll.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
     }
@@ -184,7 +271,8 @@ public class Database {
             if (connection != null) {
 
                 PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Tasks " +
-                        "(TaskName, TaskDescription) VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                        "(TaskName, TaskDescription) VALUES (?,?)",
+                    PreparedStatement.RETURN_GENERATED_KEYS);
                 pstmt.setString(1, task.getTaskName());
                 pstmt.setString(2, task.getTaskDescription());
 
@@ -195,9 +283,12 @@ public class Database {
                 while (rs.next()) {
                     return rs.getInt(1);
                 }
-            } else throw new Exception("Could not establish connection.");
+            } else {
+                throw new Exception("Could not establish connection.");
+            }
         } catch (Exception ex) {
-            System.out.println("Database Exception: Failed to saveNewEmployee.\nReason: " + ex.toString() + "\n\n\n");
+            System.out.println(
+                "Database Exception: Failed to saveNewEmployee.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
         return -1;
@@ -207,7 +298,8 @@ public class Database {
      * Method to save a newly created employee to the database.
      *
      * @param employee Employee object created by the "Create New User" FXML page.
-     * @param password String version of the password from the "Create New User" FXML page. It is encrypted when saved.
+     * @param password String version of the password from the "Create New User" FXML page. It is
+     *                 encrypted when saved.
      */
     public static void saveNewEmployee(Employee employee, String password) {
         try {
@@ -217,8 +309,8 @@ public class Database {
             if (connection != null) {
                 // Prepare the query statement.
                 PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Users " +
-                                "(Username, Password, Name, Manager) VALUES (?, ?, ?, ?)",
-                        PreparedStatement.RETURN_GENERATED_KEYS);
+                        "(Username, Password, Name, Manager) VALUES (?, ?, ?, ?)",
+                    PreparedStatement.RETURN_GENERATED_KEYS);
                 pstmt.setString(1, employee.getUsername());
                 pstmt.setString(2, encrypt(password));
                 pstmt.setString(3, employee.getName());
@@ -237,9 +329,12 @@ public class Database {
                 rs.close();
                 pstmt.close();
                 connection.close();
-            } else throw new Exception("Could not establish connection.");
+            } else {
+                throw new Exception("Could not establish connection.");
+            }
         } catch (Exception ex) {
-            System.out.println("Database Exception: Failed to saveNewEmployee.\nReason: " + ex.toString() + "\n\n\n");
+            System.out.println(
+                "Database Exception: Failed to saveNewEmployee.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
     }
@@ -250,19 +345,24 @@ public class Database {
 
             if (connection != null) {
                 Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE Username='%s' " +
+                ResultSet rs = statement
+                    .executeQuery(String.format("SELECT * FROM USERS WHERE Username='%s' " +
                         "AND Password='%s'", user.toLowerCase(), encrypt(pass)));
 
                 while (rs.next()) {
                     // Found the user, so create the employee object
                     currentUser = new Employee(rs.getInt("ID"), rs.getString("Username"),
-                            rs.getString("Name"), rs.getBoolean("Manager"));
+                        rs.getString("Name"), rs.getBoolean("Manager"));
                     System.out.println(currentUser);
                     return true;
                 }
-            } else throw new Exception("Could not establish connection.");
+            } else {
+                throw new Exception("Could not establish connection.");
+            }
         } catch (Exception ex) {
-            System.out.println("Database Exception: Failed to tryLogin.\nReason: " + ex.toString() + "\n\n\n");
+            System.out
+                .println(
+                    "Database Exception: Failed to tryLogin.\nReason: " + ex.toString() + "\n\n\n");
             ex.printStackTrace();
         }
         // If we reach this point, either the connection failed, or we didn't find the user.

@@ -250,7 +250,7 @@ public class AddPatientController {
 
       } else {
 
-          Database
+        Database
             .saveNewPatient(newPatientName.getText(), newPatientSpecies.getText(),
                 newPatientTemperament.getValue(),
                 newPatientSex.getValue(), newPatientColor.getText(), newPatientBreed.getText(),
