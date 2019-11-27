@@ -47,7 +47,7 @@ public class Kennel {
 
     @Override
     public String toString() {
-        String out = "Kennel ID: " + kennelId + (currentAnimal == null ? "" : " Animal ID: " + currentAnimal.getAnimalID());
+        String out = "Kennel ID: " + kennelId + (currentAnimal == null ? ": Empty" : ": " + currentAnimal.getName());
         return out;
     }
 }

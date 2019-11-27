@@ -96,13 +96,15 @@ Patients.fxml
     -fx-background: #212221;
 }
 
-#addPatientButton {
+#addPatientButton,
+#viewAdoptableButton {
     -fx-font-size: 14;
     -fx-background-color: #ddedf4;
     -fx-text-fill: #1181B2;
 }
 
-#addPatientButton:hover {
+#addPatientButton:hover,
+#viewAdoptableButton:hover {
     -fx-scale-y: 1.1; /* set to 1.0 for no resize on hover */
     -fx-font-size: 14;
     -fx-background-color: #ddedf4;

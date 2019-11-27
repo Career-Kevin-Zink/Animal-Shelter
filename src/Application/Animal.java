@@ -158,4 +158,5 @@ public class Animal {
         //  returns the animalView ArrayList populated with the data of the entire row
         return animalView;
     }
+    public String toString(){return String.format("(%d) : %s", animalID, name);}
 }

@@ -24,6 +24,9 @@ public class PatientsController {
   private TableView<Animal> displayPatientsTableView;
   @FXML
   private Button managementButton;
+  @FXML
+  private Button viewAdoptableButton;
+  private boolean isViewingAdoptable;
 
   public void initialize() {
     // Hide the management button if the user is not a manager.
@@ -215,5 +218,21 @@ public class PatientsController {
     options.setSortable(false);
     options.setStyle("-fx-text-fill: #ddedf4; -fx-alignment: center; -fx-pref-width: 100.0;");
     displayPatientsTableView.getColumns().add(options);
+  }
+
+  @FXML
+  public void viewAdoptableButtonPushed(ActionEvent actionEvent) {
+
+    if (!isViewingAdoptable) {
+      displayPatientsTableView.getItems().removeIf(a -> a.getAdoptable().equalsIgnoreCase("false"));
+      viewAdoptableButton.setText("View All");
+      isViewingAdoptable = true;
+    } else {
+      displayPatientsTableView.getItems().clear();
+      displayPatientsTableView.getItems().addAll(Database.animals.values());
+      viewAdoptableButton.setText("View Adoptable");
+      isViewingAdoptable = false;
+    }
+
   }
 }

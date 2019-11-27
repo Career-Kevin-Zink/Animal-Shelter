@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class TaskManager {
 
     public static HashMap<Integer, Task> existingTasks = new HashMap<>();
+    public static HashMap<Integer, AssignedTask> assignedTasks = new HashMap<>();
 
     public static class Task {
 
@@ -37,35 +38,35 @@ public class TaskManager {
         public String getTaskDescription() {
             return taskDescription;
         }
+
+        public String toString(){return String.format("(%d) : %s", taskID, taskName);}
     }
 
     public static class AssignedTask {
+        public int id;
+        public Task task;
+        public Employee employee;
+        public Kennel kennel;
+        public Animal animal;
 
-        public Task assignedTask;
-        public Employee assignedToEmployee;
-        public Kennel assignedToKennel;
-        public Animal assignedToAnimal;
-
-        public AssignedTask(Task assignedTask, Employee assignedToEmployee) {
-            this.assignedTask = assignedTask;
-            this.assignedToEmployee = assignedToEmployee;
-            this.assignedToKennel = null;
-            this.assignedToAnimal = null;
+        public AssignedTask(int id, Task task, Employee employee, Kennel kennel, Animal animal) {
+            this.id = id;
+            this.task = task;
+            this.employee = employee;
+            this.kennel = kennel;
+            this.animal = animal;
+            System.out.println(this);
         }
 
-        public AssignedTask(Task assignedTask, Kennel assignedToKennel) {
-            this.assignedTask = assignedTask;
-            this.assignedToKennel = assignedToKennel;
-            this.assignedToEmployee = null;
-            this.assignedToAnimal = null;
+        public void setID(int ID){
+            this.id = id;
+        }
+        public String toString(){
+            return String.format("ID: %d | Task: %s | Animal: %s | Employee: %s | Kennel: %s",
+                this.id, this.task, this.animal, this.employee, this.kennel);
+
         }
 
-        public AssignedTask(Task assignedTask, Animal assignedToAnimal) {
-            this.assignedTask = assignedTask;
-            this.assignedToAnimal = assignedToAnimal;
-            this.assignedToEmployee = null;
-            this.assignedToKennel = null;
-        }
     }
 
     public static Task createTask(String taskName, String taskDescription) {
