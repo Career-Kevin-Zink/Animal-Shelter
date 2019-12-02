@@ -17,7 +17,7 @@ public class Main extends Application {
         primaryStage.setTitle("Animal Shelter Management App");
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         Database.loadAll();
     }
 

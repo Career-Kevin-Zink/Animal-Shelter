@@ -19,179 +19,184 @@ import java.io.IOException;
 
 public class KennelController {
 
-    @FXML
-    private Button managementButton;
-    @FXML
-    private GridPane kennelGridPane;
-    @FXML
-    private Pane kennelviewPane;
-    @FXML
-    private Label kennelviewKennelNumberLabel;
-    @FXML
-    private VBox nameVbox;
-    @FXML
-    private VBox sexVbox;
-    @FXML
-    private VBox speciesVbox;
-    @FXML
-    private VBox breedVbox;
-    @FXML
-    private VBox idVbox;
-    @FXML
-    private VBox ageVbox;
-    @FXML
-    private VBox weightVbox;
-    @FXML
-    private VBox microChipVbox;
-    @FXML
-    private VBox arrivalVbox;
-    @FXML
-    private VBox tempermentVbox;
-    @FXML
-    private VBox adoptableVbox;
-    @FXML
-    private VBox colorVbox;
+  @FXML
+  private Button managementButton;
+  @FXML
+  private GridPane kennelGridPane;
+  @FXML
+  private Pane kennelviewPane;
+  @FXML
+  private Label kennelviewKennelNumberLabel;
+  @FXML
+  private VBox nameVbox;
+  @FXML
+  private VBox sexVbox;
+  @FXML
+  private VBox speciesVbox;
+  @FXML
+  private VBox breedVbox;
+  @FXML
+  private VBox idVbox;
+  @FXML
+  private VBox ageVbox;
+  @FXML
+  private VBox weightVbox;
+  @FXML
+  private VBox microChipVbox;
+  @FXML
+  private VBox arrivalVbox;
+  @FXML
+  private VBox tempermentVbox;
+  @FXML
+  private VBox adoptableVbox;
+  @FXML
+  private VBox colorVbox;
 
-    public void initialize() {
-        // Hide the management button if the user is not a manager.
-        if (!Database.currentUser.isManager())
-            managementButton.setVisible(false);
+  public void initialize() {
+    // Hide the management button if the user is not a manager.
+      if (!Database.currentUser.isManager()) {
+          managementButton.setVisible(false);
+      }
 
-        kennelviewPane.setStyle("-fx-background-color: #000000");
-        kennelviewPane.setVisible(false);
-        kennelGridPane.setHgap(10); //horizontal gap in pixels => that's what you are asking for
-        kennelGridPane.setVgap(10); //vertical gap in pixels
-        kennelGridPane.setPadding(new Insets(10, 10, 10, 10)); //margins around the whole grid
-        //(top/right/bottom/left)
-        for (Kennel kennel : Database.kennels.values()) {
-            addKennelToDisplay(kennel); // need to split the animals to a new page every 20 kennels
+    kennelviewPane.setStyle("-fx-background-color: #000000");
+    kennelviewPane.setVisible(false);
+    kennelGridPane.setHgap(10); //horizontal gap in pixels => that's what you are asking for
+    kennelGridPane.setVgap(10); //vertical gap in pixels
+    kennelGridPane.setPadding(new Insets(10, 10, 10, 10)); //margins around the whole grid
+    //(top/right/bottom/left)
+    for (Kennel kennel : Database.kennels.values()) {
+      addKennelToDisplay(kennel); // need to split the animals to a new page every 20 kennels
+    }
+  }
+
+  @FXML
+  void managementButtonPushed(ActionEvent event) throws IOException {
+    Parent parent = FXMLLoader.load(getClass().getResource("/Management.fxml"));
+    Scene scene = new Scene(parent);
+
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+    window.setScene(scene);
+    window.show();
+  }
+
+  @FXML
+  void dashboardButtonPushed(ActionEvent event) throws IOException {
+    Parent parent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
+    Scene scene = new Scene(parent);
+
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+    window.setScene(scene);
+    window.show();
+  }
+
+  @FXML
+  void kennelButtonPushed(ActionEvent event) throws IOException {
+    Parent parent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
+    Scene scene = new Scene(parent);
+
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+    window.setScene(scene);
+    window.show();
+  }
+
+  @FXML
+  void patientsButtonPushed(ActionEvent event) throws IOException {
+    Parent parent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
+    Scene scene = new Scene(parent);
+
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+    window.setScene(scene);
+    window.show();
+  }
+
+
+  // Add kennel buttons to kennel display.
+  private int buttonCount = 0; // start with no buttons
+
+  public void addKennelToDisplay(Kennel kennel) {
+
+    String buttonText =
+        kennel.getCurrentAnimal() == null ? "Empty" : kennel.getCurrentAnimal().getName();
+    Button button = new Button(buttonText);
+    button.setUserData(kennel);
+    button.setOnAction(e -> {
+
+        if (kennel.getCurrentAnimal() != null) {
+            displayKennelViewer((Kennel) button.getUserData());
+        } else {
+            System.out.println("No animal in kennel.");
         }
+    });
+    if (buttonCount % 4 == 0) { // add new row
+      kennelGridPane.addRow((buttonCount / 4), button);
+      buttonCount++;
+    } else { // dont add row, just add to next empty column
+      kennelGridPane.add(button, buttonCount % 4, buttonCount / 4);
+      buttonCount++;
+    }
+  }
+
+  public void displayKennelViewer(Kennel kennel) {
+    System.out.println(kennel.getKennelID());
+    kennelviewKennelNumberLabel.setText("Kennel #" + kennel.getKennelID());
+    Label kennelviewLabels[] = {
+        new Label("ID: " + kennel.getCurrentAnimal().getAnimalID()),
+        new Label("Name: " + kennel.getCurrentAnimal().getName()),
+        new Label("Sex: " + kennel.getCurrentAnimal().getSex()),
+        new Label("Species: " + kennel.getCurrentAnimal().getSpecies()),
+        new Label("Breed: " + kennel.getCurrentAnimal().getBreed()),
+        new Label("Color: " + kennel.getCurrentAnimal().getColor()),
+        new Label("Age: " + kennel.getCurrentAnimal().getAge()),
+        new Label("Weight: " + kennel.getCurrentAnimal().getWeight()),
+        new Label("Temperment: " + kennel.getCurrentAnimal().getTemperment()),
+        new Label("Microchip #: " + kennel.getCurrentAnimal().getMicrochip()),
+        new Label("Arrival Date: " + kennel.getCurrentAnimal().getArrivalDate()),
+        new Label(
+            "Adoptable: " + (kennel.getCurrentAnimal().getAdoptable().compareTo("True") == 0 ? "Yes"
+                : "No")),
+    };
+
+    for (int i = 0; i < 12; i++) {
+      kennelviewLabels[i].setStyle(
+          "-fx-text-alignment: LEFT; -fx-text-fill: #ffffff; -fx-background-color: #212221; -fx-font-family: Lato; -fx-font-size: 12; ");
     }
 
-    @FXML
-    void managementButtonPushed(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/Management.fxml"));
-        Scene scene = new Scene(parent);
+    idVbox.getChildren().add(kennelviewLabels[0]);
+    nameVbox.getChildren().add(kennelviewLabels[1]);
+    colorVbox.getChildren().add(kennelviewLabels[5]);
+    sexVbox.getChildren().add(kennelviewLabels[2]);
+    speciesVbox.getChildren().add(kennelviewLabels[3]);
+    breedVbox.getChildren().add(kennelviewLabels[4]);
+    ageVbox.getChildren().add(kennelviewLabels[6]);
+    weightVbox.getChildren().add(kennelviewLabels[7]);
+    microChipVbox.getChildren().add(kennelviewLabels[9]);
+    arrivalVbox.getChildren().add(kennelviewLabels[10]);
+    tempermentVbox.getChildren().add(kennelviewLabels[8]);
+    adoptableVbox.getChildren().add(kennelviewLabels[11]);
 
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    kennelviewPane.setStyle("-fx-background-color: #212221");
+    kennelviewPane.setVisible(true);
+  }
 
-        window.setScene(scene);
-        window.show();
-    }
+  @FXML
+  void escapeBtnPressed(ActionEvent event) {
 
-    @FXML
-    void dashboardButtonPushed(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
-        Scene scene = new Scene(parent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(scene);
-        window.show();
-    }
-
-    @FXML
-    void kennelButtonPushed(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/Kennel.fxml"));
-        Scene scene = new Scene(parent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(scene);
-        window.show();
-    }
-
-    @FXML
-    void patientsButtonPushed(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/Patients.fxml"));
-        Scene scene = new Scene(parent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(scene);
-        window.show();
-    }
-
-
-    // Add kennel buttons to kennel display.
-    private int buttonCount = 0; // start with no buttons
-
-    public void addKennelToDisplay(Kennel kennel) {
-
-
-        String buttonText = kennel.getCurrentAnimal() == null ? "Empty" : kennel.getCurrentAnimal().getName();
-        Button button = new Button(buttonText);
-        button.setUserData(kennel);
-        button.setOnAction(e -> {
-
-            if (kennel.getCurrentAnimal() != null)
-                displayKennelViewer((Kennel) button.getUserData());
-            else
-                System.out.println("No animal in kennel.");
-        });
-        if (buttonCount % 4 == 0) { // add new row
-            kennelGridPane.addRow((buttonCount / 4), button);
-            buttonCount++;
-        } else { // dont add row, just add to next empty column
-            kennelGridPane.add(button, buttonCount % 4, buttonCount / 4);
-            buttonCount++;
-        }
-    }
-
-    public void displayKennelViewer(Kennel kennel) {
-        System.out.println(kennel.getKennelID());
-        kennelviewKennelNumberLabel.setText("Kennel #" + kennel.getKennelID());
-        Label kennelviewLabels[] = {
-                new Label("ID: " + kennel.getCurrentAnimal().getAnimalID()),
-                new Label("Name: " + kennel.getCurrentAnimal().getName()),
-                new Label("Sex: " + kennel.getCurrentAnimal().getSex()),
-                new Label("Species: " + kennel.getCurrentAnimal().getSpecies()),
-                new Label("Breed: " + kennel.getCurrentAnimal().getBreed()),
-                new Label("Color: " + kennel.getCurrentAnimal().getColor()),
-                new Label("Age: " + kennel.getCurrentAnimal().getAge()),
-                new Label("Weight: " + kennel.getCurrentAnimal().getWeight()),
-                new Label("Temperment: " + kennel.getCurrentAnimal().getTemperment()),
-                new Label("Microchip #: " + kennel.getCurrentAnimal().getMicrochip()),
-                new Label("Arrival Date: " + kennel.getCurrentAnimal().getArrivalDate()),
-                new Label("Adoptable: " + (kennel.getCurrentAnimal().getAdoptable().compareTo("True") == 0 ? "Yes" : "No")),
-        };
-
-
-        for (int i = 0; i < 12; i++) {
-            kennelviewLabels[i].setStyle("-fx-text-alignment: LEFT; -fx-text-fill: #ffffff;");
-        }
-
-        idVbox.getChildren().add(kennelviewLabels[0]);
-        nameVbox.getChildren().add(kennelviewLabels[1]);
-        colorVbox.getChildren().add(kennelviewLabels[5]);
-        sexVbox.getChildren().add(kennelviewLabels[2]);
-        speciesVbox.getChildren().add(kennelviewLabels[3]);
-        breedVbox.getChildren().add(kennelviewLabels[4]);
-        ageVbox.getChildren().add(kennelviewLabels[6]);
-        weightVbox.getChildren().add(kennelviewLabels[7]);
-        microChipVbox.getChildren().add(kennelviewLabels[9]);
-        arrivalVbox.getChildren().add(kennelviewLabels[10]);
-        tempermentVbox.getChildren().add(kennelviewLabels[8]);
-        adoptableVbox.getChildren().add(kennelviewLabels[11]);
-
-        kennelviewPane.setVisible(true);
-    }
-
-    @FXML
-    void escapeBtnPressed(ActionEvent event) {
-
-        kennelviewPane.setVisible(false);
-        idVbox.getChildren().clear();
-        nameVbox.getChildren().clear();
-        colorVbox.getChildren().clear();
-        sexVbox.getChildren().clear();
-        speciesVbox.getChildren().clear();
-        breedVbox.getChildren().clear();
-        ageVbox.getChildren().clear();
-        weightVbox.getChildren().clear();
-        microChipVbox.getChildren().clear();
-        arrivalVbox.getChildren().clear();
-        tempermentVbox.getChildren().clear();
-        adoptableVbox.getChildren().clear();
-    }
+    kennelviewPane.setVisible(false);
+    idVbox.getChildren().clear();
+    nameVbox.getChildren().clear();
+    colorVbox.getChildren().clear();
+    sexVbox.getChildren().clear();
+    speciesVbox.getChildren().clear();
+    breedVbox.getChildren().clear();
+    ageVbox.getChildren().clear();
+    weightVbox.getChildren().clear();
+    microChipVbox.getChildren().clear();
+    arrivalVbox.getChildren().clear();
+    tempermentVbox.getChildren().clear();
+    adoptableVbox.getChildren().clear();
+  }
 }
