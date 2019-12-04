@@ -21,8 +21,6 @@
  ![Database](https://user-images.githubusercontent.com/54293097/70108457-58513f80-1617-11ea-9b26-cc6eabd1b758.png)
 
 
-## Getting Started
- **Coming soon...**
 
 ## Built With
 -  **IntelliJ**
