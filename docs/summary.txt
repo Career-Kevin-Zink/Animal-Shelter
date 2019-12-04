@@ -1,0 +1,27 @@
+﻿Summary.txt for Tuesday Group #1 Animal Shelter
+
+
+Scenes:
+* Dashboard
+   * Currently only a landing zone for the start of our program.
+   * The intended use was to have a Calendar with employee tasks listed for each day.
+* Management
+   * Create new employee
+   * Create a new task
+   * Assign the task to an employee
+* Kennel
+   * View kennels
+   * View information on animals stored in those kennels
+* Patients
+   * View a list of patients at the hospital
+   * Add new patients to the hospitals’ database
+   * View a list of adoptable patients
+   * Adopt/Remove patients.
+   * Edit a patient's information.
+
+
+
+
+
+
+https://github.com/rc9207/Animal-Shelter-Project.git

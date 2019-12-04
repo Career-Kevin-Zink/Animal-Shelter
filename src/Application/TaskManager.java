@@ -55,12 +55,13 @@ public class TaskManager {
             this.employee = employee;
             this.kennel = kennel;
             this.animal = animal;
-            System.out.println(this);
+            //System.out.println(this);
         }
 
-        public void setID(int ID){
+        public void setID(int id){
             this.id = id;
         }
+
         public String toString(){
             return String.format("ID: %d | Task: %s | Animal: %s | Employee: %s | Kennel: %s",
                 this.id, this.task, this.animal, this.employee, this.kennel);
