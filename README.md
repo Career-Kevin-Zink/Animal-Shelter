@@ -30,7 +30,7 @@
 -  **Joshua Colicchio**
 -  **Kevin Zink**
 -  **Peter Look**
--  **Joseph Racz**
+
 
 ## Acknowledgments
 -  **Nathalie Crespo**
