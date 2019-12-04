@@ -20,32 +20,32 @@ public class Database {
 
   public static void saveNewPatient(Animal animal) {
     saveNewPatient(
-        animal.getName(),
-        animal.getSpecies(),
-        animal.getTemperment(),
-        animal.getSex(),
-        animal.getColor(),
-        animal.getBreed(),
-        animal.getMicrochip(),
-        animal.getAge(),
-        animal.getWeight(),
-        animal.getArrivalDate(),
-        animal.getAdoptable());
+            animal.getName(),
+            animal.getSpecies(),
+            animal.getTemperment(),
+            animal.getSex(),
+            animal.getColor(),
+            animal.getBreed(),
+            animal.getMicrochip(),
+            animal.getAge(),
+            animal.getWeight(),
+            animal.getArrivalDate(),
+            animal.getAdoptable());
   }
 
   public static void saveNewPatient(String name, String species, String temperment, String sex,
-      String color, String breed, String microchip, String age,
-      String weight, String arrivalDate, String adoptable) {
+                                    String color, String breed, String microchip, String age,
+                                    String weight, String arrivalDate, String adoptable) {
     try {
-      Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+      Connection connection = DriverManager.getConnection("jdbc:sqlite:shelter.db");
 
       // Ensure the connection exists
       if (connection != null) {
         // Prepare the query statement.
         PreparedStatement pstmt = connection.prepareStatement("INSERT INTO animals " +
-            "(Name,MainSpecies,Temperment,Sex,Color,Breed,Microchip,Age,Weight,ArrivalDate,Adoptable) "
-            +
-            "VALUES (?,?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                "(Name,MainSpecies,Temperment,Sex,Color,Breed,Microchip,Age,Weight,ArrivalDate,Adoptable) "
+                +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
         pstmt.setString(1, name);
         pstmt.setString(2, species);
         pstmt.setString(3, temperment);
@@ -56,8 +56,8 @@ public class Database {
         pstmt.setString(8, age);
         pstmt.setString(9, weight);
         pstmt.setString(10,
-            (arrivalDate == null ? java.util.Calendar.getInstance().getTime().toString()
-                : arrivalDate));
+                (arrivalDate == null ? java.util.Calendar.getInstance().getTime().toString()
+                        : arrivalDate));
         pstmt.setString(11, adoptable);
 
         // Execute the query & catch generated key.
@@ -67,7 +67,7 @@ public class Database {
         // Create an animal object using the generated key & store it in our hashmap.
         while (rs.next()) {
           animals.put(rs.getInt(1), new Animal(name, species, temperment, sex, color, breed,
-              microchip, age, weight, arrivalDate, adoptable, rs.getInt(1)));
+                  microchip, age, weight, arrivalDate, adoptable, rs.getInt(1)));
         }
 
         // Close connection
@@ -79,20 +79,20 @@ public class Database {
       }
     } catch (Exception ex) {
       System.out.println(
-          "Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
+              "Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
       ex.printStackTrace();
     }
   }
 
   public void removePatient(int animalID, String animalName) {
     try {
-      Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+      Connection connection = DriverManager.getConnection("jdbc:sqlite:shelter.db");
 
       // Ensure the connection exists
       if (connection != null) {
         // Prepare the query statement.
         PreparedStatement pstmt = connection.prepareStatement("DELETE FROM animals " +
-            "WHERE CollarID = ? ", PreparedStatement.RETURN_GENERATED_KEYS);
+                "WHERE CollarID = ? ", PreparedStatement.RETURN_GENERATED_KEYS);
 
         pstmt.setInt(1, animalID);
 
@@ -110,7 +110,7 @@ public class Database {
       }
     } catch (Exception ex) {
       System.out.println(
-          "Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
+              "Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
       ex.printStackTrace();
     }
   }
@@ -118,14 +118,14 @@ public class Database {
   public static void updatePatient(int animalID) {
 
     try {
-      Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+      Connection connection = DriverManager.getConnection("jdbc:sqlite:shelter.db");
 
       // Ensure the connection exists
       if (connection != null) {
         // Prepare the query statement.
         PreparedStatement pstmt = connection.prepareStatement(
-            "UPDATE Animals SET Name=?, MainSpecies=?, Sex=?, Color=?, Breed=?, Age=?, Microchip=?, Weight=?, Temperment=?, Adoptable=? WHERE CollarID=?",
-            PreparedStatement.RETURN_GENERATED_KEYS);
+                "UPDATE Animals SET Name=?, MainSpecies=?, Sex=?, Color=?, Breed=?, Age=?, Microchip=?, Weight=?, Temperment=?, Adoptable=? WHERE CollarID=?",
+                PreparedStatement.RETURN_GENERATED_KEYS);
 
         pstmt.setString(1, animals.get(animalID).getName());
         pstmt.setString(2, animals.get(animalID).getSpecies());
@@ -153,7 +153,7 @@ public class Database {
       }
     } catch (Exception ex) {
       System.out.println(
-          "Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
+              "Database Exception: Failed to saveNewPatient.\nReason: " + ex.toString() + "\n\n\n");
       ex.printStackTrace();
     }
   }
@@ -163,13 +163,13 @@ public class Database {
    */
   public static void updateKennel(Kennel kennel) {
     try {
-      Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+      Connection connection = DriverManager.getConnection("jdbc:sqlite:shelter.db");
 
       if (connection != null) {
         PreparedStatement pstmt = connection
-            .prepareStatement("UPDATE Kennels SET currentAnimal=? WHERE KennelID=?");
+                .prepareStatement("UPDATE Kennels SET currentAnimal=? WHERE KennelID=?");
         pstmt.setInt(1,
-            (kennel.getCurrentAnimal() == null) ? -1 : kennel.getCurrentAnimal().getAnimalID());
+                (kennel.getCurrentAnimal() == null) ? -1 : kennel.getCurrentAnimal().getAnimalID());
         pstmt.setInt(2, kennel.getKennelID());
         pstmt.executeUpdate();
 
@@ -181,7 +181,7 @@ public class Database {
       }
     } catch (Exception ex) {
       System.out.println(
-          "Database Exception: Failed to updateKennel.\nReason: " + ex.toString() + "\n\n\n");
+              "Database Exception: Failed to updateKennel.\nReason: " + ex.toString() + "\n\n\n");
       ex.printStackTrace();
     }
   }
@@ -191,7 +191,7 @@ public class Database {
    */
   public static void loadAll() {
     try {
-      Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+      Connection connection = DriverManager.getConnection("jdbc:sqlite:shelter.db");
 
       if (connection != null) {
         Statement statement = connection.createStatement();
@@ -200,18 +200,18 @@ public class Database {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM animals");
         while (resultSet.next()) {
           animals.put(resultSet.getInt("CollarID"), new Animal(
-              resultSet.getString("Name"),
-              resultSet.getString("MainSpecies"),
-              resultSet.getString("Temperment"),
-              resultSet.getString("Sex"),
-              resultSet.getString("Color"),
-              resultSet.getString("Breed"),
-              resultSet.getString("Microchip"),
-              resultSet.getString("Age"),
-              resultSet.getString("Weight"),
-              resultSet.getString("ArrivalDate"),
-              resultSet.getString("Adoptable"),
-              resultSet.getInt("CollarID")));
+                  resultSet.getString("Name"),
+                  resultSet.getString("MainSpecies"),
+                  resultSet.getString("Temperment"),
+                  resultSet.getString("Sex"),
+                  resultSet.getString("Color"),
+                  resultSet.getString("Breed"),
+                  resultSet.getString("Microchip"),
+                  resultSet.getString("Age"),
+                  resultSet.getString("Weight"),
+                  resultSet.getString("ArrivalDate"),
+                  resultSet.getString("Adoptable"),
+                  resultSet.getInt("CollarID")));
         }
 
         // Load kennels and place them into the HashMap
@@ -235,8 +235,8 @@ public class Database {
         resultSet = statement.executeQuery("SELECT * FROM users");
         while (resultSet.next()) {
           Employee employee = new Employee(
-              resultSet.getInt("ID"), resultSet.getString("Username"),
-              resultSet.getString("Name"), resultSet.getBoolean("Manager"));
+                  resultSet.getInt("ID"), resultSet.getString("Username"),
+                  resultSet.getString("Name"), resultSet.getBoolean("Manager"));
           employees.put(resultSet.getInt("ID"), employee);
         }
 
@@ -244,20 +244,20 @@ public class Database {
         resultSet = statement.executeQuery("SELECT * FROM Tasks");
         while (resultSet.next()) {
           TaskManager.existingTasks.put(resultSet.getInt(1),
-              new TaskManager.Task(resultSet.getInt(1),
-                  resultSet.getString(2),
-                  resultSet.getString(3)));
+                  new TaskManager.Task(resultSet.getInt(1),
+                          resultSet.getString(2),
+                          resultSet.getString(3)));
         }
 
         // Loads Assigned tasks and places them in the TaskManager
         resultSet = statement.executeQuery("SELECT * FROM AssignedTasks");
         while (resultSet.next()) {
           TaskManager.assignedTasks.put(resultSet.getInt(1),
-              new TaskManager.AssignedTask(resultSet.getInt(1),
-                  TaskManager.existingTasks.get(resultSet.getInt(2)),
-                  employees.get(resultSet.getInt(4)),
-                  kennels.get(resultSet.getInt(5)),
-                  animals.get(resultSet.getInt(3))));
+                  new TaskManager.AssignedTask(resultSet.getInt(1),
+                          TaskManager.existingTasks.get(resultSet.getInt(2)),
+                          employees.get(resultSet.getInt(4)),
+                          kennels.get(resultSet.getInt(5)),
+                          animals.get(resultSet.getInt(3))));
         }
 
         // Close all connections.
@@ -269,21 +269,21 @@ public class Database {
       }
     } catch (Exception ex) {
       System.out
-          .println("Database Exception: Failed to loadAll.\nReason: " + ex.toString() + "\n\n\n");
+              .println("Database Exception: Failed to loadAll.\nReason: " + ex.toString() + "\n\n\n");
       ex.printStackTrace();
     }
   }
 
   public static int saveNewTask(TaskManager.Task task) {
     try {
-      Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+      Connection connection = DriverManager.getConnection("jdbc:sqlite:shelter.db");
 
       // Ensure the connection exists
       if (connection != null) {
 
         PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Tasks " +
-                "(TaskName, TaskDescription) VALUES (?,?)",
-            PreparedStatement.RETURN_GENERATED_KEYS);
+                        "(TaskName, TaskDescription) VALUES (?,?)",
+                PreparedStatement.RETURN_GENERATED_KEYS);
         pstmt.setString(1, task.getTaskName());
         pstmt.setString(2, task.getTaskDescription());
 
@@ -299,7 +299,7 @@ public class Database {
       }
     } catch (Exception ex) {
       System.out.println(
-          "Database Exception: Failed to saveNewTask.\nReason: " + ex.toString() + "\n\n\n");
+              "Database Exception: Failed to saveNewTask.\nReason: " + ex.toString() + "\n\n\n");
       ex.printStackTrace();
     }
     return -1;
@@ -307,26 +307,26 @@ public class Database {
 
   public static int saveNewAssignedTask(TaskManager.AssignedTask task) {
     try {
-      Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+      Connection connection = DriverManager.getConnection("jdbc:sqlite:shelter.db");
 
       // Ensure the connection exists
       if (connection != null) {
 
         PreparedStatement pstmt = connection.prepareStatement("INSERT INTO AssignedTasks " +
-                "(TaskID, AnimalID, EmployeeID, KennelID ) VALUES (?,?,?,?)",
-            PreparedStatement.RETURN_GENERATED_KEYS);
+                        "(TaskID, AnimalID, EmployeeID, KennelID ) VALUES (?,?,?,?)",
+                PreparedStatement.RETURN_GENERATED_KEYS);
         pstmt.setInt(1, task.task.getTaskID());
         pstmt.setInt(2, task.animal.getAnimalID());
         pstmt.setInt(3, task.employee.getId());
         pstmt.setInt(4, task.kennel.getKennelID());
 
 
-          // Execute the query & catch generated key.
+        // Execute the query & catch generated key.
         pstmt.executeUpdate();
         ResultSet rs = pstmt.getGeneratedKeys();
 
         while (rs.next()) {
-            task.setID(rs.getInt(1));
+          task.setID(rs.getInt(1));
           return rs.getInt(1);
         }
       } else {
@@ -334,7 +334,7 @@ public class Database {
       }
     } catch (Exception ex) {
       System.out.println(
-          "Database Exception: Failed to saveNewAssigned.\nReason: " + ex.toString() + "\n\n\n");
+              "Database Exception: Failed to saveNewAssigned.\nReason: " + ex.toString() + "\n\n\n");
       ex.printStackTrace();
     }
     return -1;
@@ -349,14 +349,14 @@ public class Database {
    */
   public static void saveNewEmployee(Employee employee, String password) {
     try {
-      Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+      Connection connection = DriverManager.getConnection("jdbc:sqlite:shelter.db");
 
       // Ensure the connection exists
       if (connection != null) {
         // Prepare the query statement.
         PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Users " +
-                "(Username, Password, Name, Manager) VALUES (?, ?, ?, ?)",
-            PreparedStatement.RETURN_GENERATED_KEYS);
+                        "(Username, Password, Name, Manager) VALUES (?, ?, ?, ?)",
+                PreparedStatement.RETURN_GENERATED_KEYS);
         pstmt.setString(1, employee.getUsername().toLowerCase());
         pstmt.setString(2, encrypt(password));
         pstmt.setString(3, employee.getName());
@@ -380,25 +380,25 @@ public class Database {
       }
     } catch (Exception ex) {
       System.out.println(
-          "Database Exception: Failed to saveNewEmployee.\nReason: " + ex.toString() + "\n\n\n");
+              "Database Exception: Failed to saveNewEmployee.\nReason: " + ex.toString() + "\n\n\n");
       ex.printStackTrace();
     }
   }
 
   public static boolean tryLogin(String user, String pass) {
     try {
-      Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database/shelter.db");
+      Connection connection = DriverManager.getConnection("jdbc:sqlite:shelter.db");
 
       if (connection != null) {
         Statement statement = connection.createStatement();
         ResultSet rs = statement
-            .executeQuery(String.format("SELECT * FROM USERS WHERE Username='%s' " +
-                "AND Password='%s'", user.toLowerCase(), encrypt(pass)));
+                .executeQuery(String.format("SELECT * FROM USERS WHERE Username='%s' " +
+                        "AND Password='%s'", user.toLowerCase(), encrypt(pass)));
 
         while (rs.next()) {
           // Found the user, so create the employee object
           currentUser = new Employee(rs.getInt("ID"), rs.getString("Username"),
-              rs.getString("Name"), rs.getBoolean("Manager"));
+                  rs.getString("Name"), rs.getBoolean("Manager"));
           System.out.println(currentUser);
           return true;
         }
@@ -407,8 +407,8 @@ public class Database {
       }
     } catch (Exception ex) {
       System.out
-          .println(
-              "Database Exception: Failed to tryLogin.\nReason: " + ex.toString() + "\n\n\n");
+              .println(
+                      "Database Exception: Failed to tryLogin.\nReason: " + ex.toString() + "\n\n\n");
       ex.printStackTrace();
     }
     // If we reach this point, either the connection failed, or we didn't find the user.
