@@ -15,7 +15,9 @@
 
 ## Diagrams
 **Class Diagram**
- ![Class_Diagram](https://user-images.githubusercontent.com/54293097/67154127-495f3980-f2c4-11e9-88b8-8d44556aa2fe.png)
+ ![Application](https://user-images.githubusercontent.com/54293097/70108407-3eaff800-1617-11ea-953b-d1d7e3233c68.jpg)
+ ![Database](https://user-images.githubusercontent.com/54293097/70108457-58513f80-1617-11ea-9b26-cc6eabd1b758.png)
+
 
 ## Getting Started
  **Coming soon...**
