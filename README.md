@@ -6,7 +6,9 @@
 - **This is a team project for CEN 3031 - Software Engineering Fundamentals.**
 
 ## Demonstration
- **Coming soon ... We will either upload a gif or video of the program in use when it is closer to being completed.**
+**Click the Play button to see a demonstration video on streamable.com**
+
+ [![Watch the video](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTq9wwyt_EieJcUmnlYa1xMo6iAepwvC6gTS-1ZHza8SiqUAP_&s)](https://streamable.com/w0v04)
 
 ## Documentation
 **Testing login information:**
